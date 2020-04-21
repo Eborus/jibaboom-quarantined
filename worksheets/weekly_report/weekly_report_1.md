@@ -4,15 +4,14 @@ This report is for you to document the progres of your project. You should also 
 
 ## What have I done last week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   Worked on setting up git and vscode
+-   Changed nothing
 
 ## What do I plan to do next week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   What they want us to do next week
+-   Work on testing and Integration
+-   Change something I guess
 
 ## Additional Thoughts
 

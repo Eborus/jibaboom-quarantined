@@ -3,7 +3,7 @@
 ## Names:
 
 1. `[NAME HERE]`
-2. `[NAME HERE]`
+2. `[Lim Rui Yang]`
 
 ## Setup
 

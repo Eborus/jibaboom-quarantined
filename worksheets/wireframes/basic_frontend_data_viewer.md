@@ -33,7 +33,7 @@ This document should help you explain how your user interfaces are designed. You
 
 1. Table can be sorted from ascending or descending order. 
 2. Unique sorting mechanic, it allows the user to sort based on two types, the column type and the option type. If the column is a int, the options will be symbols. If the     colum is a string, the options will be more varied.
-3. Adaptable pagination, user can modify the amount of rows per page and even go to a specific page by typing the page number in the page box.
+3. Adaptable pagination, user can modify the amount of rows per page and even go to a specific page by typing the page number in the page box
 
 ### Justification 3
 

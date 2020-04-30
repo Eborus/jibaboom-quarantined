@@ -27,9 +27,13 @@ This document should help you explain how your user interfaces are designed. You
 1. May need more than 1 search bar as we need to search by multiple attributes
 2. Data with many column may be bad.
 
-### Justification 2
+![Justificaiton2](https://d2jq2hx2dbkw6t.cloudfront.net/214/data-view-laravel-vuejs.png)
 
-> Find more existing work for reference.
+### Good Points
+
+1. Table can be sorted from ascending or descending order. 
+2. Unique sorting mechanic, it allows the user to sort based on two types, the column type and the option type. If the column is a int, the options will be symbols. If the     colum is a string, the options will be more varied.
+3. Adaptable pagination, user can modify the amount of rows per page and even go to a specific page by typing the page number in the page box.
 
 ### Justification 3
 

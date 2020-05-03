@@ -41,13 +41,13 @@ console.log(totallyNormalAddition(4, 5));
 
 ```js
 function TotallyNormalSubtraction(FirstInteger,SecondInteger){
-let Resultmessage = "The sum of this totally normal addition adds up to"
+let Resultmessage = "The result of this crazy function is "
 if(FirstInteger>10) {
 FirstInteger = FirstInteger+5 } 
 else {
 FirstInteger = FirstInteger+10 }
-let Result = FirstInteger+SecondInteger
+let Result = FirstInteger-SecondInteger
 return Resultmessage+Result
 }
-console.log(totallyNormalAddition(4,5)+"my eyes hurt")
+console.log(totallyNormalSubtraction(4,5)+"my eyes hurt")
 ```

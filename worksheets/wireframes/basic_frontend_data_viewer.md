@@ -4,9 +4,9 @@ This document should help you explain how your user interfaces are designed. You
 
 ## Wireframe
 
-> This is just an example, please find your own wireframe.
-
 ![Wireframe](assets/wireframe-FrontEnd-DataViewer.png)
+
+> I will add the table cells later. Also this wireframe is subject to change along the way during coding to adapt to code changes.
 
 ## Justifications
 

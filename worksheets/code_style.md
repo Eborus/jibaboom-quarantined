@@ -20,9 +20,34 @@ Based on your chosen rules, give an example of a code that follows the code styl
 ### Good Example
 
 ```js
+function totallyNormalAddition(firstInteger, secondInteger) {
+    let resultMessage = "The sum of this totally normal addition adds up to ";
+
+    if(firstInteger > 10) {
+        firstInteger = firstInteger + 5
+    } else {
+        firstInteger = firstInteger + 10
+    };
+
+    let result = firstInteger + secondInteger;
+
+    return resultMessage + result;
+}
+
+console.log(totallyNormalAddition(4, 5));
 ```
 
 ### Bad Example
 
 ```js
+function TotallyNormalSubtraction(FirstInteger,SecondInteger){
+let Resultmessage = "The sum of this totally normal addition adds up to"
+if(FirstInteger>10) {
+FirstInteger = FirstInteger+5 } 
+else {
+FirstInteger = FirstInteger+10 }
+let Result = FirstInteger+SecondInteger
+return Resultmessage+Result
+}
+console.log(totallyNormalAddition(4,5)+"my eyes hurt")
 ```

@@ -8,8 +8,10 @@ This document helps you identify the smaller tasks and helps you create a rough 
     1. Frontend
         1. Data Viewer
             1. Wireframe
-            2. Implementation
-            3. Integration
+            2. Bootstrap Setup
+            3. GET Data and display table
+            4. Filter Testing & Implementation
+            5. Integration
         2. Result Viewer
             1. Wireframe
             2. Implementation
@@ -36,12 +38,13 @@ This document helps you identify the smaller tasks and helps you create a rough 
 
 ## Estimate Schedule
 
-### Member 1 - <ENTER NAME>
+### Member 1 - <Jason Lou>
 
 | Week | Level | Component | Feature       | Task           |
 | ---- | ----- | --------- | ------------- | -------------- |
-| 1    | Basic | Frontend  | Data Viewer   | Wireframe      |
-| 1    | Basic | Frontend  | Result Viewer | Wireframe      |
-| 2-3  | Basic | Frontend  | Data Viewer   | Implementation |
+| 1    | Basic & Mobile | Frontend  | Data Viewer   | Wireframe |
+| 2    | Basic | Frontend  | Data Viewer | Bootstrap Setup & GET Data and Display table |
+| 2-3  | Basic | Frontend  | Data Viewer | Filter Testing & Implementation |
+| 3-4  | Basic | Frontend  | Data Viewer | Integration |
 
 > This is just a template, you just need to state **WHO** will do **WHAT** and **WHEN**.

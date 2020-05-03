@@ -151,9 +151,9 @@ Links:
 
 Choose the correct API/Viewer to be used for each of the `???` steps in the diagram:
 
--   Q1. `[Insert/Result]` API (Delete one of the options)
--   Q2. `[Data/Result]` Viewer
--   Q3. `[Insert/Result]` API
+-   Q1. `[Insert]` API (Delete one of the options)
+-   Q2. `[Data]` Viewer
+-   Q3. `[Result]` API
 -   Q4. `[Data/Result]` Viewer
 -   Q5. `[Insert/Result]` API
 

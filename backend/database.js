@@ -1,3 +1,6 @@
+//Database connection stuff, do not touch unless you wanna switch between the backup and the main database, in which you'd only have to change connectionString. Just copy
+//and paste the url
+
 const { Client } = require('pg');
 const connectionString = 'postgres://gufhunsh:W3aGK2IiEFfhTRC63WfpuIY39qQHfR4V@john.db.elephantsql.com:5432/gufhunsh'
 
@@ -30,11 +33,12 @@ function resetTable() {
     })
 }
 
+//Since there is no frontend option to insert statements. Use test.http for the insert function
 function insertPerformanceData(musicFestival, callback) {
     let i = 1;
-    const template = musicFestival.map(music => `($${i++}, $${i++}, $${i++}, $${i++}, $${i++}, $${i++})`).join(',');
+    const queryStructure = musicFestival.map(music => `($${i++}, $${i++}, $${i++}, $${i++}, $${i++}, $${i++})`).join(',');
     const values = musicFestival.reduce((reduced, music) => [...reduced, music.performance_id, music.festival_id, music.performance, music.startTime, music.endTime, music.popularity], []);
-    const query = `INSERT INTO musicFestival (performance_id, festival_id, performance, startTime, endTime, popularity) VALUES ${template};`;
+    const query = `INSERT INTO musicFestival (performance_id, festival_id, performance, startTime, endTime, popularity) VALUES ${queryStructure};`;
     
     const client = connect();
     client.query(query, values, (err, result) => {

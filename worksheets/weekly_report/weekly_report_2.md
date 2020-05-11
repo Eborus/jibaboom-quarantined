@@ -2,20 +2,15 @@
 
 This report is for you to document the progres of your project. You should also document any change in plan, e.g. change in design or change in API specification or change in work allocation. The following is a template for you to follow.
 
-## What have I done last week
+## What have we done last week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   Worked on documentation of different worksheets like project planning etc.
+-   Worked on wireframes for frontend data and result viewer.
 
-## What do I plan to do next week
+## What do we plan to do next week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   Plan to start working on the frontend, creating the database and a littl bit of backend api.
+-   Will update api and other relevant documents.
+-   Change wireframe design (if needed)
 
 ## Additional Thoughts
-
--   VSCode is sick.
--   This addon is fabulous.
--   Lecturer is awesome.

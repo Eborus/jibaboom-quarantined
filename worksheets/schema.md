@@ -9,13 +9,13 @@ You may refer to the following link to learn more about postgresql schema:
 
 The following are examples of how you can create a table, replace the examples with your own create statements of all your table.
 ```sql
-CREATE TABLE table_name(
-   id SERIAL PRIMARY KEY,
-   name VARCHAR UNIQUE NOT NULL,
-);
-
-CREATE TABLE table_name_2(
-   id SERIAL PRIMARY KEY,
-   table_name_id VARCHAR NOT NULL REFERENCES table_name(id)
-);
+        CREATE TABLE musicFestival (
+            id SERIAL PRIMARY KEY,
+            performance_id INTEGER UNIQUE NOT NULL,
+            festival_id INTEGER NOT NULL,
+            performance VARCHAR(40) NOT NULL,
+            startTime CHAR(4) NOT NULL,
+            endTime CHAR(4) NOT NULL,
+            popularity INTEGER NOT NULL
+        );
 ```

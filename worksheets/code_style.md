@@ -6,12 +6,12 @@ This documents helps to guide the look and feel of the code so that even when th
 
 | Rules             | Choices                         |
 | ----------------- | ------------------------------- |
-| Case Styles       | camelCase/snake_case/PascalCase |
-| Acronym Case      | IBM/Ibm/ibm                     |
-| Indentation Style | Allman/1TBS                     |
-| Indentation       | Tabs/Space                      |
-| Indentation Space | 2/4 spaces                      |
-| Semicolon         | Optional/Mandatory              |
+| Case Styles       | camelCase |
+| Acronym Case      | IBM                     |
+| Indentation Style | Allman                     |
+| Indentation       | Tabs                      |
+| Indentation Space | 4 spaces                      |
+| Semicolon         | Mandatory              |
 
 ## Examples
 

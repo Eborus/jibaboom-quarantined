@@ -7,7 +7,7 @@ const basicDataUrl = 'http://localhost:3000/basic/data';
 
 function populateDataTable(data) {
     console.log(data);
-    const dataTableHtml = data.map(({id, performance_id, festival_id, performance, startTime, endTime, popularity}) => `
+    const dataTableHtml = data.map(({ id, performance_id, festival_id, performance, startTime, endTime, popularity }) => `
             <tr>
                 <th scope="row">${id}</th>
                 <td>${performance_id}</td>

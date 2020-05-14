@@ -3,18 +3,18 @@ const basicDataQuery = {
     startTime: null,
 };
 
-const basicDataUrl = 'http://localhost:3000/basic/data';
+const basicDataUrl = 'http://localhost:3000/performance/data';
 
 function populateDataTable(data) {
     console.log(data);
-    const dataTableHtml = data.map(({ id, performance_id, festival_id, performance, startTime, endTime, popularity }) => `
+    const dataTableHtml = data.map(({ id, performance_id, festival_id, performance, starttime, endtime, popularity }) => `
             <tr>
                 <th scope="row">${id}</th>
                 <td>${performance_id}</td>
                 <td>${festival_id}</td>
                 <td>${performance}</td>
-                <td>${startTime}</td>
-                <td>${endTime}</td>
+                <td>${starttime}</td>
+                <td>${endtime}</td>
                 <td>${popularity}</td>
             </tr>
     `,
@@ -38,15 +38,15 @@ function filterData(event) {
     $('#basic-data-filter-form input').not(':input[type=submit]').each((index, input) => {
         basicDataQuery[$(input).attr('key')] = $(input).val();
     });
-    refreshBasicDataTable();
+    refreshDataTable();
     return false;
 }
 
-function registerBasicDataFilterForm() {
+function registerDataFilterForm() {
     $('#basic-data-filter-form').submit(filterData);
 }
 
 $(document).ready(function () {
-    registerBasicDataFilterForm();
+    registerDataFilterForm();
     refreshDataTable();
 })

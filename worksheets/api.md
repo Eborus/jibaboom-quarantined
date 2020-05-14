@@ -20,13 +20,15 @@ Each API should include
 | attribute   | value       |
 | ----------- | ----------- |
 | HTTP Method | GET         |
-| Endpoint    | /basic/data |
+| Endpoint    | /performance/data |
 
 ### Parameters
 
 | parameter | datatype        | example   |
 | --------- | --------------- | --------- |
-| id        | 10 digit number | 123456789 |
+| festivalId        | 10 digit number | 1100000002 |
+| startTime       | 4 Characters | 0900 |
+| endTime       | 4 Characters | 1300 |
 
 ### Response Body
 
@@ -34,10 +36,31 @@ Each API should include
 {
     "result": [
         {
-            "id": number,
-            "property1": number,
-            "property2": string,
-            ...
+            "id": 4,
+            "performance_id": 1000000004,
+            "festival_id": 1100000002,
+            "performance": "Performance 4",
+            "starttime": "1000",
+            "endtime": "1100",
+            "popularity": 1
+        },
+        {
+            "id": 5,
+            "performance_id": 1000000005,
+            "festival_id": 1100000002,
+            "performance": "Performance 5",
+            "starttime": "1100",
+            "endtime": "1200",
+            "popularity": 1
+        },
+        {
+            "id": 7,
+            "performance_id": 1000000007,
+            "festival_id": 1100000002,
+            "performance": "Performance 7",
+            "starttime": "1030",
+            "endtime": "1230",
+            "popularity": 3
         }
     ]
 }

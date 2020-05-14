@@ -3,11 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
 
 const database = require('./database');
 
 var app = express();
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -23,6 +25,16 @@ app.post('/performance/insert', function (req, res, next) {
     console.log(result);
     res.json(data);
   });
+});
+
+app.get('/performance/data', function(req, res, next) {
+  const { festivalId, startTime, endTime, page, pageSize} = req.query;
+  database.getPerformanceDetails(festivalId, startTime, endTime, page, pageSize, (error, result) =>{
+    if(error) {
+      return next(error);
+    }
+    res.json(result)
+  })
 });
 
 // Test if api works

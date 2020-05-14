@@ -5,3 +5,39 @@ body {
     height: 100%;
     min-height: 100%;
 }
+
+.nav-btn, .nav-btn a {
+    text-decoration: none;
+    color:#a6a6a6;
+}
+
+.nav-btn {
+    --spacing: 1em;
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    padding: calc(var(--spacing) / 2) var(--spacing);
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.nav-btn:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: var(--spacing);
+    right: var(--spacing);
+    height: 2px;
+    background: white;
+    transform: scaleX(0);
+    transition: 150ms ease-in-out;
+}
+
+.nav-btn:hover::after {
+    transform: scaleX(1);
+}
+
+.section-Title {
+    color: #a6a6a6;
+}

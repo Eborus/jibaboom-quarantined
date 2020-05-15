@@ -50,3 +50,7 @@ $(document).ready(function () {
     registerDataFilterForm();
     refreshDataTable();
 })
+
+$(document).ready(function () {
+    $('#dTable').DataTable();
+})

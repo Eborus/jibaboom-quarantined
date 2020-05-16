@@ -1,7 +1,21 @@
 const basicDataQuery = {
     festivalId: null,
     startTime: null,
+    page: 0,
+    pageSize: 5
 };
+
+const basicDataPaginationFunction = {
+    gotoFirstPage: function () {
+        basicDataQuert['page'] = 0;
+    },
+    changePage:function(delta){
+        basicDataQuery['page']+=delta
+    },
+    changePageSize:function(newPageSize){
+        basicDataQuery['pageSize']=newPageSize;
+    }
+}
 
 const basicDataUrl = 'http://localhost:3000/performance/data';
 
@@ -51,6 +65,23 @@ $(document).ready(function () {
     refreshDataTable();
 })
 
+
+// Pagination Part
+
+function paginateBasicData(event) {
+    const fn = $(this).attr('fn');
+    const value = $(this).attr('value') || $(this).val();
+    basicDataPaginationFunction[fn](value);
+    refreshDataTable();
+}
+
+function registerBasicDataPaginationForm() {
+    $('#basic-data-first-page').click(paginateBasicData);
+    $('#basic-data-previous-page').click(paginateBasicData);
+    $('#basic-data-next-page').click(paginateBasicData);
+    $('#basic-data-page-size-select').change(paginateBasicData)
+}
+
 $(document).ready(function () {
-    $('#dTable').DataTable();
+    registerBasicDataPaginationForm();
 })

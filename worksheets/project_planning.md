@@ -47,4 +47,11 @@ This document helps you identify the smaller tasks and helps you create a rough 
 | 2-3  | Basic | Frontend  | Data Viewer | Filter Testing & Implementation |
 | 3-4  | Basic | Frontend  | Data Viewer | Integration |
 
+### Member 1 - <Rui Yang>
+
+| Week | Level | Component | Feature       | Task           |
+| ---- | ----- | --------- | ------------- | -------------- |
+| 1    | Basic & Mobile | Frontend  | Result Viewer   | Wireframe |
+| 2-3   | Basic | Frontend  | Data Viewer | Design/Weblayout |
+| 4  | Basic | Frontend  | Data Viewer | Pagination |
 > This is just a template, you just need to state **WHO** will do **WHAT** and **WHEN**.

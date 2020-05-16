@@ -6,7 +6,7 @@ This document should help you explain how your user interfaces are designed. You
 
 > This is just an example, please find your own wireframe.
 
-![Wireframe](assets/sample-wireframe-result-viewer-frontend.png)
+![Wireframe](Will be similar to dataviewer)
 
 ## Justifications
 
@@ -28,8 +28,28 @@ This document should help you explain how your user interfaces are designed. You
 
 ### Justification 2
 
-> Find more existing work for reference.
+![Justificaiton1](assets/card-details.png)
+
+#### Good Points
+
+1. Simple looking UI.
+2. Show data with start/end time appropriately.
+
+#### Bad Points
+
+1. It looks too crowded may be hard for user to understand the timetable.
+2. May be hard to implement.
 
 ### Justification 3
 
-> Find more existing work for reference.
+![Justificaiton1](assets/Timetable-viewer-and-editor-The-edit-commands-and-the-veriication-facility-are-also.png)
+
+#### Good Points
+
+1. Very clean and simple UI.
+2. Show data with start/end time appropriately.
+
+#### Bad Points
+
+1. Looks too simple, might not be to peoples liking.
+2. May be hard to implement.

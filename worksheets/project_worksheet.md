@@ -76,10 +76,10 @@ Link: [Component Diagram](https://www.plantuml.com/plantuml/svg/0/JK-x3i8m3Dpz5L
 
 ### Questions:
 
-1. Does the frontend communicate with the mobile? `(Yes/No)`
-2. Does the frontend communicate directly with the database? `(Yes/No)`
-3. How should the frontend display data from the database? `(Answer here)`
-4. How does the frontend communicate with backend? `(Answer here)`
+1. Does the frontend communicate with the mobile? `(No)`
+2. Does the frontend communicate directly with the database? `(No)`
+3. How should the frontend display data from the database? `With clarity and showing only what the user needs and not the backend part`
+4. How does the frontend communicate with backend? `Through the use of sql statements and other things like ajax or axios`
 
 ---
 

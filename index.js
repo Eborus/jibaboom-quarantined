@@ -1,24 +1,33 @@
+//Current Issues with the pagination
+//If the user increases the rows displayed per page and goes to the next page, max page size still remains the same. Meaning if it already displays all 18 data, the user can still
+//go to the next page up to two more times with each new page returning a blank table. You can also see the no. of entries increasing despite it being abnormal.
+//Planning to fix this by Sun evening, not to worry... I hope -Jason
+
 const basicDataQuery = {
     festivalId: null,
     startTime: null,
     page: 0,
-    pageSize: 5
+    pageSize: 5,
+    maxPages: 3,
 };
 
-const basicDataPaginationFunction = {
-    gotoFirstPage: function () {
-        basicDataQuert['page'] = 0;
+const dataPaginationFunction = {
+    changePage: function(delta) {
+        basicDataQuery['page'] += parseInt(delta);
+        if(basicDataQuery['page'] >= basicDataQuery['maxPages']) {
+            basicDataQuery['page'] = basicDataQuery['maxPages'];
+        } else if(basicDataQuery['page'] < 0) {
+            basicDataQuery['page'] = 0;
+        }
     },
-    changePage:function(delta){
-        basicDataQuery['page']+=delta
-    },
-    changePageSize:function(newPageSize){
-        basicDataQuery['pageSize']=newPageSize;
+    changePageSize: function (newPageSize) {
+        basicDataQuery['pageSize'] = newPageSize
     }
-}
+};
 
 const basicDataUrl = 'http://localhost:3000/performance/data';
 
+//Filtering data and generating table
 function populateDataTable(data) {
     console.log(data);
     const dataTableHtml = data.map(({ id, performance_id, festival_id, performance, starttime, endtime, popularity }) => `
@@ -46,6 +55,7 @@ function refreshDataTable() {
         if (error) return alert(error);
         populateDataTable(data);
     })
+    displayEntriesText();
 }
 
 function filterData(event) {
@@ -63,25 +73,44 @@ function registerDataFilterForm() {
 $(document).ready(function () {
     registerDataFilterForm();
     refreshDataTable();
+    registerBasicDataPaginationForm();
+    displayEntriesText();
 })
 
 
 // Pagination Part
 
-function paginateBasicData(event) {
+function registerBasicDataPaginationForm() {
+    $('#pagination-back').click(paginateData);
+    $('#pagination-forward').click(paginateData);
+    $('#rowsPerPageSelection').change(paginateData)
+}
+
+function paginateData(event) {
     const fn = $(this).attr('fn');
     const value = $(this).attr('value') || $(this).val();
-    basicDataPaginationFunction[fn](value);
+    dataPaginationFunction[fn](value);
     refreshDataTable();
 }
 
-function registerBasicDataPaginationForm() {
-    $('#basic-data-first-page').click(paginateBasicData);
-    $('#basic-data-previous-page').click(paginateBasicData);
-    $('#basic-data-next-page').click(paginateBasicData);
-    $('#basic-data-page-size-select').change(paginateBasicData)
-}
+//Called at the start and each time the table is refreshed to update the entries text. Currently not responsive if the table gets more records.
+function displayEntriesText() {
+    let maxTableRows;
+    $.get(basicDataUrl, basicDataQuery).done((result) => {
+        maxTableRows = result.length;
+        console.log(maxTableRows); //Still figuring this part out, trying to fix the entries text thing
+    })
+    let displayEntryText = document.getElementById("entriesText");
+    let count = basicDataQuery['page'];
+    let maxIndex = basicDataQuery['pageSize'] * (count + 1);
+    let minIndex = (maxIndex - basicDataQuery['pageSize']) + 1
 
-$(document).ready(function () {
-    registerBasicDataPaginationForm();
-})
+    if (maxIndex > 18) {
+        maxIndex = 18;
+    }
+    if (minIndex < 1 && minIndex < maxTableRows) {
+        minIndex = 1;
+    }
+
+    displayEntryText.innerHTML = "Showing " + minIndex + " to " + maxIndex + " of 18 entries";
+}

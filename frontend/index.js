@@ -3,9 +3,19 @@
 //go to the next page up to two more times with each new page returning a blank table. You can also see the no. of entries increasing despite it being abnormal.
 //Planning to fix this by Sun evening, not to worry... I hope -Jason
 
+const defaults = {
+    festivalId: null,
+    startTime: null,
+    endTime: null,
+    page: 0,
+    pageSize: 999,
+    maxEntries: 0,
+};
+
 const basicDataQuery = {
     festivalId: null,
     startTime: null,
+    endTime: null,
     page: 0,
     pageSize: 5,
     maxPages: 3,
@@ -13,6 +23,7 @@ const basicDataQuery = {
 
 const dataPaginationFunction = {
     changePage: function(delta) {
+        basicDataQuery['maxPages'] = Math.floor(defaults['maxEntries'] / basicDataQuery['pageSize']);
         basicDataQuery['page'] += parseInt(delta);
         if(basicDataQuery['page'] >= basicDataQuery['maxPages']) {
             basicDataQuery['page'] = basicDataQuery['maxPages'];
@@ -22,6 +33,8 @@ const dataPaginationFunction = {
     },
     changePageSize: function (newPageSize) {
         basicDataQuery['pageSize'] = newPageSize
+        basicDataQuery['maxPages'] = Math.floor(defaults['maxEntries'] / newPageSize);
+        basicDataQuery['page'] = 0;
     }
 };
 
@@ -50,12 +63,25 @@ function getDataFromBackend(callback) {
         .fail((message) => callback(message, null));
 }
 
+function getTotalEntries(callback) {
+    defaults['festivalId'] = basicDataQuery['festivalId'];
+    defaults['startTime'] = basicDataQuery['startTime'];
+    defaults['endTime'] = basicDataQuery['endTime'];
+    $.get(basicDataUrl, defaults).done((result) => callback(null, result))
+        .fail((message) => callback(message, null));
+}
+
 function refreshDataTable() {
     getDataFromBackend(function (error, data) {
         if (error) return alert(error);
         populateDataTable(data);
     })
-    displayEntriesText();
+    getTotalEntries(function (error, entries) {
+        if (error) return alert(error);
+        console.log("Total number of entries returned is " + entries.length)
+        defaults['maxEntries'] = entries.length;
+        displayEntriesText(defaults['maxEntries']);
+    })
 }
 
 function filterData(event) {
@@ -94,23 +120,19 @@ function paginateData(event) {
 }
 
 //Called at the start and each time the table is refreshed to update the entries text. Currently not responsive if the table gets more records.
-function displayEntriesText() {
-    let maxTableRows;
-    $.get(basicDataUrl, basicDataQuery).done((result) => {
-        maxTableRows = result.length;
-        console.log(maxTableRows); //Still figuring this part out, trying to fix the entries text thing
-    })
+function displayEntriesText(totalRows) {
+    let maxTableRows = totalRows;
     let displayEntryText = document.getElementById("entriesText");
     let count = basicDataQuery['page'];
     let maxIndex = basicDataQuery['pageSize'] * (count + 1);
     let minIndex = (maxIndex - basicDataQuery['pageSize']) + 1
 
-    if (maxIndex > 18) {
-        maxIndex = 18;
+    if (maxIndex > maxTableRows) {
+        maxIndex = maxTableRows;
     }
     if (minIndex < 1 && minIndex < maxTableRows) {
         minIndex = 1;
     }
 
-    displayEntryText.innerHTML = "Showing " + minIndex + " to " + maxIndex + " of 18 entries";
+    displayEntryText.innerHTML = "Showing " + minIndex + " to " + maxIndex + " of " + maxTableRows + " entries";
 }

@@ -6,7 +6,7 @@
 
 ### Justification 1
 
-It would be similar to the frontend
+[Justification1](assets/MobileExample-ResultViewer.png)
 
 #### Good Points
 1. It allows for easier learnability as most of the icons and tables will be the same.

@@ -38,4 +38,15 @@
 
 ### Justification 3
 
-![Justification3](https://media.springernature.com/lw685/springer-static/image/art%3A10.1186%2Fs13059-015-0595-3/MediaObjects/13059_2015_595_Fig1_HTML.gif)
+![Justification3](assets/sampleDataViewer.png)
+
+#### Good Points
+
+1. Easily readable/Simple UI
+2. Easily customizable
+
+#### Bad Points
+
+1. Have to click on each and individual row to be able to view the data
+2. No pagination, user will have to scroll down
+3. No filter, will be hard to find the data the user needs/require

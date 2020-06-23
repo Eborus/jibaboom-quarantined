@@ -3,7 +3,7 @@
 ## Names:
 
 1. `JasonLou`
-2. `Lim Rui Yang`
+2. `Lim Rui Yang` 
 
 ## Setup
 

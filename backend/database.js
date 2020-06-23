@@ -7,9 +7,9 @@ const connectionString = 'postgres://gufhunsh:W3aGK2IiEFfhTRC63WfpuIY39qQHfR4V@j
 function connect() {
     const client = new Client({
         connectionString: connectionString,
-      });
-      client.connect();
-      return client;
+    });
+    client.connect();
+    return client;
 }
 
 //Run npm run resetTable to reset the database. Aka, drops the table and creates a new table with empty values.
@@ -19,12 +19,12 @@ function resetTable() {
         DROP TABLE IF EXISTS musicFestival;
         CREATE TABLE musicFestival (
             id SERIAL PRIMARY KEY,
-            performance_id INTEGER UNIQUE NOT NULL,
-            festival_id INTEGER NOT NULL,
-            performance VARCHAR(40) NOT NULL,
+            performance_id BIGINT UNIQUE NOT NULL,
+            festival_id BIGINT NOT NULL,
+            performance VARCHAR(40),
             startTime CHAR(4) NOT NULL,
             endTime CHAR(4) NOT NULL,
-            popularity INTEGER NOT NULL
+            popularity INTEGER
         );
     `;
     client.query(query, (err, res) => {
@@ -36,23 +36,29 @@ function resetTable() {
 //Since there is no frontend option to insert statements. Use test.http for the insert function
 function insertPerformanceData(musicFestival, callback) {
     let i = 1;
-    const queryStructure = musicFestival.map(music => `($${i++}, $${i++}, $${i++}, $${i++}, $${i++}, $${i++})`).join(',');
-    const values = musicFestival.reduce((reduced, music) => [...reduced, music.performance_id, music.festival_id, music.performance, music.startTime, music.endTime, music.popularity], []);
-    const query = `INSERT INTO musicFestival (performance_id, festival_id, performance, startTime, endTime, popularity) VALUES ${queryStructure};`;
-    
-    const client = connect();
-    client.query(query, values, (err, result) => {
-        callback(err, result);
-        client.end();
-    });
+    const queryStructure = musicFestival.map(music => `($${i++}, $${i++}, $${i++}, $${i++})`).join(',');
+    const values = musicFestival.reduce((reduced, music) => [...reduced, music.performanceId, music.festivalId, music.startTime, music.endTime], []);
+    if (musicFestival.length == 0) {
+        const err = "";
+        const result = "";
+        return callback(err, result);
+    } else {
+        const query = `INSERT INTO musicFestival (performance_id, festival_id, startTime, endTime) VALUES ${queryStructure};`;
+
+        const client = connect();
+        client.query(query, values, (err, result) => {
+            callback(err, result);
+            client.end();
+        });
+    }
 }
 
 //Gets and generates the table again based on filtered search.
-function getPerformanceDetails(festivalId, startTime, endTime, page=0, pageSize=18, callback) { //Default should always be 18 rows.
+function getPerformanceDetails(festivalId, startTime, endTime, page = 0, pageSize = 18, callback) { //Default should always be 18 rows.
     let whereClause;
     let i = 1;
     const values = [];
-    if(!festivalId && !startTime && !endTime) whereClause = ''; //If all inputs are empty, return an empty sql query
+    if (!festivalId && !startTime && !endTime) whereClause = ''; //If all inputs are empty, return an empty sql query
     else {
         whereClause = 'WHERE ';
         if (festivalId) {
@@ -75,7 +81,7 @@ function getPerformanceDetails(festivalId, startTime, endTime, page=0, pageSize=
     const query = `SELECT * FROM musicFestival ${whereClause} ${limitOffsetClause}`;
 
     const client = connect();
-    client.query(query, values, function(err, { rows }) {
+    client.query(query, values, function (err, { rows }) {
         client.end();
         callback(err, rows);
     })

@@ -16,14 +16,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.post('/performance/insert', function (req, res, next) {
+app.post('/basic/insert', function (req, res, next) {
   const { data } = req.body;
   database.insertPerformanceData(data, (error, result) => {
     if(error) {
       return next(error);
     }
     console.log(result);
-    res.json(data);
+    res.json({result: "Success"});
   });
 });
 

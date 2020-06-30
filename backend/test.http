@@ -1,147 +1,147 @@
-POST http://localhost:3000/performance/insert HTTP/1.1
+POST http://localhost:3000/basic/insert HTTP/1.1
 Content-Type: application/json
 
 {
     "data": [
         {
-            "performance_id": 1000000001,
-            "festival_id": 1100000001,
+            "performanceId": 1000000001,
+            "festivalId": 1100000001,
             "performance": "Performance 1",
             "startTime": "1000",
             "endTime": "1100",
             "popularity": 1
         },
         {
-            "performance_id": 1000000002,
-            "festival_id": 1100000001,
+            "performanceId": 1000000002,
+            "festivalId": 1100000001,
             "performance": "Performance 2",
             "startTime": "1000",
             "endTime": "1100",
             "popularity": 1
         },
         {
-            "performance_id": 1000000003,
-            "festival_id": 1100000001,
+            "performanceId": 1000000003,
+            "festivalId": 1100000001,
             "performance": "Performance 3",
             "startTime": "1030",
             "endTime": "1130",
             "popularity": 10
         },
         {
-            "performance_id": 1000000004,
-            "festival_id": 1100000002,
+            "performanceId": 1000000004,
+            "festivalId": 1100000002,
             "performance": "Performance 4",
             "startTime": "1000",
             "endTime": "1100",
             "popularity": 1
         },
         {
-            "performance_id": 1000000005,
-            "festival_id": 1100000002,
+            "performanceId": 1000000005,
+            "festivalId": 1100000002,
             "performance": "Performance 5",
             "startTime": "1100",
             "endTime": "1200",
             "popularity": 1
         },
         {
-            "performance_id": 1000000006,
-            "festival_id": 1100000002,
+            "performanceId": 1000000006,
+            "festivalId": 1100000002,
             "performance": "Performance 6",
             "startTime": "1200",
             "endTime": "1300",
             "popularity": 1
         },
         {
-            "performance_id": 1000000007,
-            "festival_id": 1100000002,
+            "performanceId": 1000000007,
+            "festivalId": 1100000002,
             "performance": "Performance 7",
             "startTime": "1030",
             "endTime": "1230",
             "popularity": 3
         },
         {
-            "performance_id": 1000000008,
-            "festival_id": 1100000003,
+            "performanceId": 1000000008,
+            "festivalId": 1100000003,
             "performance": "Performance 8",
             "startTime": "1000",
             "endTime": "1100",
             "popularity": 1
         },
         {
-            "performance_id": 1000000009,
-            "festival_id": 1100000003,
+            "performanceId": 1000000009,
+            "festivalId": 1100000003,
             "performance": "Performance 9",
             "startTime": "1100",
             "endTime": "1200",
             "popularity": 1
         },
         {
-            "performance_id": 1000000010,
-            "festival_id": 1100000003,
+            "performanceId": 1000000010,
+            "festivalId": 1100000003,
             "performance": "Performance 10",
             "startTime": "1200",
             "endTime": "1300",
             "popularity": 1
         },
         {
-            "performance_id": 1000000011,
-            "festival_id": 1100000003,
+            "performanceId": 1000000011,
+            "festivalId": 1100000003,
             "performance": "Performance 11",
             "startTime": "1030",
             "endTime": "1230",
             "popularity": 1
         },
         {
-            "performance_id": 1000000012,
-            "festival_id": 1100000003,
+            "performanceId": 1000000012,
+            "festivalId": 1100000003,
             "performance": "Performance 12",
             "startTime": "1130",
             "endTime": "1300",
             "popularity": 3
         },
         {
-            "performance_id": 1000000013,
-            "festival_id": 1100000004,
+            "performanceId": 1000000013,
+            "festivalId": 1100000004,
             "performance": "Performance 13",
             "startTime": "1000",
             "endTime": "1100",
             "popularity": 1
         },
         {
-            "performance_id": 1000000014,
-            "festival_id": 1100000004,
+            "performanceId": 1000000014,
+            "festivalId": 1100000004,
             "performance": "Performance 14",
             "startTime": "1100",
             "endTime": "1200",
             "popularity": 1
         },
         {
-            "performance_id": 1000000015,
-            "festival_id": 1100000004,
+            "performanceId": 1000000015,
+            "festivalId": 1100000004,
             "performance": "Performance 15",
             "startTime": "1200",
             "endTime": "1300",
             "popularity": 2
         },
         {
-            "performance_id": 1000000016,
-            "festival_id": 1100000004,
+            "performanceId": 1000000016,
+            "festivalId": 1100000004,
             "performance": "Performance 16",
             "startTime": "1030",
             "endTime": "1230",
             "popularity": 3
         },
         {
-            "performance_id": 1000000017,
-            "festival_id": 1100000004,
+            "performanceId": 1000000017,
+            "festivalId": 1100000004,
             "performance": "Performance 17",
             "startTime": "1130",
             "endTime": "1330",
             "popularity": 4
         },
         {
-            "performance_id": 1000000018,
-            "festival_id": 1100000004,
+            "performanceId": 1000000018,
+            "festivalId": 1100000004,
             "performance": "Performance 18",
             "startTime": "0900",
             "endTime": "1200",

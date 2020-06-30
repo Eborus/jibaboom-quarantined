@@ -36,14 +36,14 @@ function resetTable() {
 //Since there is no frontend option to insert statements. Use test.http for the insert function
 function insertPerformanceData(musicFestival, callback) {
     let i = 1;
-    const queryStructure = musicFestival.map(music => `($${i++}, $${i++}, $${i++}, $${i++})`).join(',');
-    const values = musicFestival.reduce((reduced, music) => [...reduced, music.performanceId, music.festivalId, music.startTime, music.endTime], []);
+    const queryStructure = musicFestival.map(music => `($${i++}, $${i++}, $${i++}, $${i++}, $${i++}, $${i++})`).join(',');
+    const values = musicFestival.reduce((reduced, music) => [...reduced, music.performanceId, music.festivalId, music.performance, music.startTime, music.endTime, music.popularity], []);
     if (musicFestival.length == 0) {
         const err = "";
         const result = "";
         return callback(err, result);
     } else {
-        const query = `INSERT INTO musicFestival (performance_id, festival_id, startTime, endTime) VALUES ${queryStructure};`;
+        const query = `INSERT INTO musicFestival (performance_id, festival_id, performance, startTime, endTime, popularity) VALUES ${queryStructure};`;
 
         const client = connect();
         client.query(query, values, (err, result) => {

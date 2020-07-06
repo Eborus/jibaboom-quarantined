@@ -23,7 +23,7 @@ const basicDataQuery = {
 
 const dataPaginationFunction = {
     changePage: function(delta) {
-        basicDataQuery['maxPages'] = Math.floor(defaults['maxEntries'] / basicDataQuery['pageSize']);
+        basicDataQuery['maxPages'] = Math.floor((defaults['maxEntries'] - 1) / basicDataQuery['pageSize']);
         basicDataQuery['page'] += parseInt(delta);
         if(basicDataQuery['page'] >= basicDataQuery['maxPages']) {
             basicDataQuery['page'] = basicDataQuery['maxPages'];
@@ -33,7 +33,7 @@ const dataPaginationFunction = {
     },
     changePageSize: function (newPageSize) {
         basicDataQuery['pageSize'] = newPageSize
-        basicDataQuery['maxPages'] = Math.floor(defaults['maxEntries'] / newPageSize);
+        basicDataQuery['maxPages'] = Math.floor((defaults['maxEntries'] - 1) / newPageSize);
         basicDataQuery['page'] = 0;
     }
 };
@@ -73,11 +73,11 @@ function getTotalEntries(callback) {
 
 function refreshDataTable() {
     getDataFromBackend(function (error, data) {
-        if (error) return alert(error);
+        if (error) return alert(`Error: Unable to retrieve data from backend, Code: 503`);
         populateDataTable(data);
     })
     getTotalEntries(function (error, entries) {
-        if (error) return alert(error);
+        if (error) return alert(`Error: Unable to get the total number of entries, Code: 500`);
         console.log("Total number of entries returned is " + entries.length)
         defaults['maxEntries'] = entries.length;
         displayEntriesText(defaults['maxEntries']);

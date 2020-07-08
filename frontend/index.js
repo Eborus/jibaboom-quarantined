@@ -1,9 +1,5 @@
-//Current Issues with the pagination
-//If the user increases the rows displayed per page and goes to the next page, max page size still remains the same. Meaning if it already displays all 18 data, the user can still
-//go to the next page up to two more times with each new page returning a blank table. You can also see the no. of entries increasing despite it being abnormal.
-//Planning to fix this by Sun evening, not to worry... I hope -Jason
-
 const defaults = {
+    dataType: 0,
     festivalId: null,
     startTime: null,
     endTime: null,
@@ -13,6 +9,7 @@ const defaults = {
 };
 
 const basicDataQuery = {
+    dataType: 0,
     festivalId: null,
     startTime: null,
     endTime: null,
@@ -64,6 +61,7 @@ function getDataFromBackend(callback) {
 }
 
 function getTotalEntries(callback) {
+    defaults['dataType'] = basicDataQuery['dataType'];
     defaults['festivalId'] = basicDataQuery['festivalId'];
     defaults['startTime'] = basicDataQuery['startTime'];
     defaults['endTime'] = basicDataQuery['endTime'];
@@ -100,6 +98,7 @@ $(document).ready(function () {
     registerDataFilterForm();
     refreshDataTable();
     registerBasicDataPaginationForm();
+    registerDTypeSelection();
     displayEntriesText();
 })
 
@@ -135,4 +134,17 @@ function displayEntriesText(totalRows) {
     }
 
     displayEntryText.innerHTML = "Showing " + minIndex + " to " + maxIndex + " of " + maxTableRows + " entries";
+}
+
+//Determine data type
+
+function registerDTypeSelection() {
+    $('#dataTypeSelection').change(changeDataType);
+}
+
+function changeDataType(event) {
+    const dataValue = document.getElementById("dataTypeSelection").value;
+    basicDataQuery['dataType'] = dataValue;
+    console.log(basicDataQuery['dataType']);
+    refreshDataTable();
 }

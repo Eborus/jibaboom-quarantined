@@ -28,8 +28,8 @@ app.post('/basic/insert', function (req, res, next) {
 });
 
 app.get('/performance/data', function(req, res, next) {
-  const { festivalId, startTime, endTime, page, pageSize} = req.query;
-  database.getPerformanceDetails(festivalId, startTime, endTime, page, pageSize, (error, result) =>{
+  const { dataType, festivalId, startTime, endTime, page, pageSize} = req.query;
+  database.getPerformanceDetails(dataType, festivalId, startTime, endTime, page, pageSize, (error, result) =>{
     if(error) {
       return next(error);
     }

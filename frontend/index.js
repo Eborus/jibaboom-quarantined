@@ -18,6 +18,13 @@ const basicDataQuery = {
     maxPages: 3,
 };
 
+const basicResultQuery = {
+    festivalId: null,
+    startTime: null,
+    endTime: null,
+    popularity: null,
+};
+
 const dataPaginationFunction = {
     changePage: function(delta) {
         basicDataQuery['maxPages'] = Math.floor((defaults['maxEntries'] - 1) / basicDataQuery['pageSize']);
@@ -147,4 +154,24 @@ function changeDataType(event) {
     basicDataQuery['dataType'] = dataValue;
     console.log(basicDataQuery['dataType']);
     refreshDataTable();
+}
+
+// Result Viewer Part
+function registerBasicResultInput() {
+    $('#basic-result-input-form').submit(computeResults);
+}
+
+function computeResults() {
+    $('#basic-result-input-form input').not(':input[type=submit]').each((index, input) => {
+        basicResultQuery[$(input).attr('key')] = $(input).val();
+    });
+    refreshResultTable();
+    return false;
+}
+
+function refreshResultTable() {
+    getResultFromBackend(function (error, data) {
+        if (error) return alert(`Error: Unable to retrieve data from backend, Code: 503`);
+        populateResultTable(data);
+    })
 }

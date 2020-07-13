@@ -18,7 +18,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/basic/insert', function (req, res, next) {
   const { data } = req.body;
-  database.insertPerformanceData(data, (error, result) => {
+  database.insertPerformanceData(data, 'Basic', (error, result) => {
+    if(error) {
+      return next(error);
+    }
+    console.log(result);
+    res.json({result: "Success"});
+  });
+});
+
+app.post('/advanced/insert', function (req, res, next) {
+  const { data } = req.body;
+  database.insertPerformanceData(data, 'Advanced', (error, result) => {
     if(error) {
       return next(error);
     }

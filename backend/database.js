@@ -35,10 +35,10 @@ function resetTable() {
 }
 
 //Since there is no frontend option to insert statements. Use test.http for the insert function
-function insertPerformanceData(musicFestival, callback) {
+function insertPerformanceData(musicFestival, dataType, callback) {
     let i = 1;
     const queryStructure = musicFestival.map(music => `($${i++}, $${i++}, $${i++} ,$${i++}, $${i++}, $${i++}, $${i++})`).join(',');
-    const values = musicFestival.reduce((reduced, music) => [...reduced, music.dataType, music.performance_id, music.festival_id, music.performance, music.startTime, music.endTime, music.popularity], []);
+    const values = musicFestival.reduce((reduced, music) => [...reduced, dataType, music.performance_id, music.festival_id, music.performance, music.startTime, music.endTime, music.popularity], []);
     if (musicFestival.length == 0) {
         const err = "";
         const result = "";

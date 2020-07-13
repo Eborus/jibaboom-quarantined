@@ -19,70 +19,60 @@ Content-Type: application/json
 {
     "data": [
         {
-            "dataType": "Basic",
             "performance_id":1234567890,
             "festival_id":9999999991,
             "startTime":"2000",
             "endTime":"2134"
         },
         {
-            "dataType": "Basic",
             "performance_id":9999999991,
             "festival_id":9999999991,
             "startTime":"0000",
             "endTime":"1123"
         },
         {
-            "dataType": "Basic",
             "performance_id":9999999992,
             "festival_id":9999999991,
             "startTime":"2143",
             "endTime":"2145"
         },
         {
-            "dataType": "Basic",
             "performance_id":9999999993,
             "festival_id":9999999991,
             "startTime":"0912",
             "endTime":"2323"
         },
         {
-            "dataType": "Basic",
             "performance_id":9999999994,
             "festival_id":9999999991,
             "startTime":"2222",
             "endTime":"2233"
         },
         {
-            "dataType": "Basic",
             "performance_id":9999999995,
             "festival_id":9999999991,
             "startTime":"1111",
             "endTime":"2001"
         },
         {
-            "dataType": "Basic",
             "performance_id":9999999996,
             "festival_id":9999999992,
             "startTime":"2313",
             "endTime":"2323"
         },
         {
-            "dataType": "Basic",
             "performance_id":9999999997,
             "festival_id":9999999992,
             "startTime":"1234",
             "endTime":"2359"
         },
         {
-            "dataType": "Basic",
             "performance_id":9999999998,
             "festival_id":9999999992,
             "startTime":"2313",
             "endTime":"2345"
         },
         {
-            "dataType": "Basic",
             "performance_id":9999999999,
             "festival_id":9999999992,
             "startTime":"1352",

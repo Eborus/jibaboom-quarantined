@@ -91,8 +91,8 @@ Content-Type: application/json
 {
 	"data": [
         {
-            "performanceId":9999999999,
-            "festivalId":9999999992,
+            "performance_id":9999999999,
+            "festival_id":9999999992,
             "startTime":"1352",
             "endTime":"1555"
         },

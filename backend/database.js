@@ -20,12 +20,13 @@ function resetTable() {
         CREATE TABLE musicFestival (
             id SERIAL PRIMARY KEY,
             data_type VARCHAR(20) NOT NULL,
-            performance_id BIGINT UNIQUE NOT NULL,
+            performance_id BIGINT NOT NULL,
             festival_id BIGINT NOT NULL,
             performance VARCHAR(40),
             startTime CHAR(4) NOT NULL,
             endTime CHAR(4) NOT NULL,
-            popularity INTEGER
+            popularity INTEGER,
+            UNIQUE (data_type, performance_id)
         );
     `;
     client.query(query, (err, res) => {

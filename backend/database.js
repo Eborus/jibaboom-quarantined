@@ -96,8 +96,17 @@ function getPerformanceDetails(dataType, festivalId, startTime, endTime, page = 
     })
 }
 
+function getPerformancesForComputation(festival_id, callback) {
+    const client = connect();
+    client.query(`SELECT * FROM musicFestival WHERE festival_id = $1`, [festival_id], (err, { rows }) => {
+        client.end();
+        callback(err, rows);
+    });
+}
+
 module.exports = {
     resetTable,
     insertPerformanceData,
-    getPerformanceDetails
+    getPerformanceDetails,
+    getPerformancesForComputation
 };

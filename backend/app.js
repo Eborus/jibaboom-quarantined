@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cors = require('cors');
 
 const database = require('./database');
+const backend = require('./backend');
 
 var app = express();
 
@@ -47,6 +48,18 @@ app.get('/performance/data', function(req, res, next) {
     res.json(result)
   })
 });
+
+app.get('/performance/result', function(req, res, next) {
+  const { festivalId } = req.query;
+  database.getPerformancesForComputation(festivalId, (error, result) => {
+    if(error) {
+      return next(error);
+    }
+    const { error: computationError, result: computationResult } = backend.compute(result)
+    if (computationError) return next(computationError);
+    return res.json(computationResult)
+  })
+})
 
 // Test if api works
 app.get('/', (req, res, next) => {

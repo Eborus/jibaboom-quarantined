@@ -1,9 +1,5 @@
-//Current Issues with the pagination
-//If the user increases the rows displayed per page and goes to the next page, max page size still remains the same. Meaning if it already displays all 18 data, the user can still
-//go to the next page up to two more times with each new page returning a blank table. You can also see the no. of entries increasing despite it being abnormal.
-//Planning to fix this by Sun evening, not to worry... I hope -Jason
-
 const defaults = {
+    dataType: 0,
     festivalId: null,
     startTime: null,
     endTime: null,
@@ -13,12 +9,17 @@ const defaults = {
 };
 
 const basicDataQuery = {
+    dataType: 0,
     festivalId: null,
     startTime: null,
     endTime: null,
     page: 0,
     pageSize: 5,
     maxPages: 3,
+};
+
+const basicResultQuery = {
+    festivalId: null,
 };
 
 const dataPaginationFunction = {
@@ -39,6 +40,7 @@ const dataPaginationFunction = {
 };
 
 const basicDataUrl = 'http://localhost:3000/performance/data';
+const basicResultUrl = 'http://localhost:3000/performance/result';
 
 //Filtering data and generating table
 function populateDataTable(data) {
@@ -64,6 +66,7 @@ function getDataFromBackend(callback) {
 }
 
 function getTotalEntries(callback) {
+    defaults['dataType'] = basicDataQuery['dataType'];
     defaults['festivalId'] = basicDataQuery['festivalId'];
     defaults['startTime'] = basicDataQuery['startTime'];
     defaults['endTime'] = basicDataQuery['endTime'];
@@ -88,6 +91,7 @@ function filterData(event) {
     $('#basic-data-filter-form input').not(':input[type=submit]').each((index, input) => {
         basicDataQuery[$(input).attr('key')] = $(input).val();
     });
+    basicDataQuery['page'] = 0;
     refreshDataTable();
     return false;
 }
@@ -100,7 +104,9 @@ $(document).ready(function () {
     registerDataFilterForm();
     refreshDataTable();
     registerBasicDataPaginationForm();
+    registerDTypeSelection();
     displayEntriesText();
+    registerBasicResultInput()
 })
 
 
@@ -135,4 +141,59 @@ function displayEntriesText(totalRows) {
     }
 
     displayEntryText.innerHTML = "Showing " + minIndex + " to " + maxIndex + " of " + maxTableRows + " entries";
+}
+
+//Determine data type
+
+function registerDTypeSelection() {
+    $('#dataTypeSelection').change(changeDataType);
+}
+
+function changeDataType(event) {
+    const dataValue = document.getElementById("dataTypeSelection").value;
+    basicDataQuery['dataType'] = dataValue;
+    console.log(basicDataQuery['dataType']);
+    refreshDataTable();
+}
+
+// Result Viewer Part
+function registerBasicResultInput() {
+    $('#basic-result-input-form').submit(computeResults);
+}
+
+function computeResults() {
+    $('#basic-result-input-form input').not(':input[type=submit]').each((index, input) => {
+        basicResultQuery[$(input).attr('key')] = $(input).val();
+    });
+    refreshResultTable();
+    return false;
+}
+
+function refreshResultTable() {
+    getResultFromBackend(function (error, data) {
+        if (error) return alert(`Error: Unable to retrieve data from backend, Code: 503`);
+        populateResultTable(data);
+    })
+}
+
+function getResultFromBackend(callback) {
+    $.get(basicResultUrl, basicResultQuery).done((result) => callback(null, result))
+        .fail((message) => callback(message, null));
+}
+
+function populateResultTable(data) {
+    console.log(data);
+    // const dataTableHtml = data.map(({ id, performance_id, festival_id, performance, starttime, endtime, popularity }) => `
+    //         <tr>
+    //             <th scope="row">${id}</th>
+    //             <td>${performance_id}</td>
+    //             <td>${festival_id}</td>
+    //             <td>${performance}</td>
+    //             <td>${starttime}</td>
+    //             <td>${endtime}</td>
+    //             <td>${popularity}</td>
+    //         </tr>
+    // `,
+    // );
+    // $('#data-tbody').html(dataTableHtml);
 }

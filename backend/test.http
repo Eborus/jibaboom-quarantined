@@ -1,4 +1,4 @@
-POST http://localhost:3000/basic/insert HTTP/1.1
+POST http://localhost:3000/advanced/insert HTTP/1.1
 Content-Type: application/json
 
 {
@@ -146,6 +146,19 @@ Content-Type: application/json
             "startTime": "0900",
             "endTime": "1200",
             "popularity": 5
+        },
+        {
+            "performance_id":9999999991,
+            "festival_id":9999999991,
+            "performance": "Performance 19",
+            "startTime":"2000",
+            "endTime":"2134",
+            "popularity": 2
         }
     ]
 }
+
+###
+
+GET http://localhost:3000/performance/result?festivalId=1100000002 HTTP/1.1
+Content-Type: application/json

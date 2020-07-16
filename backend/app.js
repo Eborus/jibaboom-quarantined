@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cors = require('cors');
 
 const database = require('./database');
+const backend = require('./backend');
 
 var app = express();
 
@@ -18,7 +19,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/basic/insert', function (req, res, next) {
   const { data } = req.body;
-  database.insertPerformanceData(data, (error, result) => {
+  database.insertPerformanceData(data, 'Basic', (error, result) => {
+    if(error) {
+      return next(error);
+    }
+    console.log(result);
+    res.json({result: "Success"});
+  });
+});
+
+app.post('/advanced/insert', function (req, res, next) {
+  const { data } = req.body;
+  database.insertPerformanceData(data, 'Advanced', (error, result) => {
     if(error) {
       return next(error);
     }
@@ -28,14 +40,26 @@ app.post('/basic/insert', function (req, res, next) {
 });
 
 app.get('/performance/data', function(req, res, next) {
-  const { festivalId, startTime, endTime, page, pageSize} = req.query;
-  database.getPerformanceDetails(festivalId, startTime, endTime, page, pageSize, (error, result) =>{
+  const { dataType, festivalId, startTime, endTime, page, pageSize} = req.query;
+  database.getPerformanceDetails(dataType, festivalId, startTime, endTime, page, pageSize, (error, result) =>{
     if(error) {
       return next(error);
     }
     res.json(result)
   })
 });
+
+app.get('/performance/result', function(req, res, next) {
+  const { festivalId } = req.query;
+  database.getPerformancesForComputation(festivalId, (error, result) => {
+    if(error) {
+      return next(error);
+    }
+    const { error: computationError, result: computationResult } = backend.compute(result)
+    if (computationError) return next(computationError);
+    return res.json(computationResult)
+  })
+})
 
 // Test if api works
 app.get('/', (req, res, next) => {

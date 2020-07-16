@@ -20,9 +20,6 @@ const basicDataQuery = {
 
 const basicResultQuery = {
     festivalId: null,
-    startTime: null,
-    endTime: null,
-    popularity: null,
 };
 
 const dataPaginationFunction = {
@@ -43,6 +40,7 @@ const dataPaginationFunction = {
 };
 
 const basicDataUrl = 'http://localhost:3000/performance/data';
+const basicResultUrl = 'http://localhost:3000/performance/result';
 
 //Filtering data and generating table
 function populateDataTable(data) {
@@ -93,6 +91,7 @@ function filterData(event) {
     $('#basic-data-filter-form input').not(':input[type=submit]').each((index, input) => {
         basicDataQuery[$(input).attr('key')] = $(input).val();
     });
+    basicDataQuery['page'] = 0;
     refreshDataTable();
     return false;
 }
@@ -107,6 +106,7 @@ $(document).ready(function () {
     registerBasicDataPaginationForm();
     registerDTypeSelection();
     displayEntriesText();
+    registerBasicResultInput()
 })
 
 
@@ -174,4 +174,26 @@ function refreshResultTable() {
         if (error) return alert(`Error: Unable to retrieve data from backend, Code: 503`);
         populateResultTable(data);
     })
+}
+
+function getResultFromBackend(callback) {
+    $.get(basicResultUrl, basicResultQuery).done((result) => callback(null, result))
+        .fail((message) => callback(message, null));
+}
+
+function populateResultTable(data) {
+    console.log(data);
+    // const dataTableHtml = data.map(({ id, performance_id, festival_id, performance, starttime, endtime, popularity }) => `
+    //         <tr>
+    //             <th scope="row">${id}</th>
+    //             <td>${performance_id}</td>
+    //             <td>${festival_id}</td>
+    //             <td>${performance}</td>
+    //             <td>${starttime}</td>
+    //             <td>${endtime}</td>
+    //             <td>${popularity}</td>
+    //         </tr>
+    // `,
+    // );
+    // $('#data-tbody').html(dataTableHtml);
 }

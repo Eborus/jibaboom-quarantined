@@ -182,18 +182,17 @@ function getResultFromBackend(callback) {
 }
 
 function populateResultTable(data) {
-    console.log(data);
-    // const dataTableHtml = data.map(({ id, performance_id, festival_id, performance, starttime, endtime, popularity }) => `
-    //         <tr>
-    //             <th scope="row">${id}</th>
-    //             <td>${performance_id}</td>
-    //             <td>${festival_id}</td>
-    //             <td>${performance}</td>
-    //             <td>${starttime}</td>
-    //             <td>${endtime}</td>
-    //             <td>${popularity}</td>
-    //         </tr>
-    // `,
-    // );
-    // $('#data-tbody').html(dataTableHtml);
+    const dataTableHtml = data.map(({ id, performance_id, festival_id, performance, starttime, endtime, popularity }) => `
+            <tr>
+                <th scope="row">${id}</th>
+                <td>${performance_id}</td>
+                <td>${festival_id}</td>
+                <td>${performance}</td>
+                <td>${starttime}</td>
+                <td>${endtime}</td>
+                <td>${popularity}</td>
+            </tr>
+    `,
+    );
+    $('#result-tbody').html(dataTableHtml);
 }

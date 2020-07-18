@@ -7,7 +7,7 @@ function compute(data) {
 }
 
 function sortArrayOfPerformances(performances) {
-    performances.sort((a, b) => a.endtime - b.endtime);
+    performances.sort((a, b) => a.endtime - b.endtime); // Sorts the array of performances on descending end time
     console.log(performances);
 
     let selected = [];

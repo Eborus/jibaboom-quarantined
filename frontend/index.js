@@ -40,7 +40,7 @@ const dataPaginationFunction = {
 };
 
 const basicDataUrl = 'http://localhost:3000/performance/data';
-const basicResultUrl = 'http://localhost:3000/performance/result';
+const basicResultUrl = 'http://localhost:3000/basic/result';
 
 //Filtering data and generating table
 function populateDataTable(data) {
@@ -152,6 +152,7 @@ function registerDTypeSelection() {
 function changeDataType(event) {
     const dataValue = document.getElementById("dataTypeSelection").value;
     basicDataQuery['dataType'] = dataValue;
+    basicDataQuery['page'] = 0;
     console.log(basicDataQuery['dataType']);
     refreshDataTable();
 }

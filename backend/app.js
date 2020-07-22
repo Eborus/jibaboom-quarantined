@@ -17,6 +17,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/reset', function (req, res) {
+  database.resetTable(function (err, result) {
+      if (err) {
+        return res.json({ error: 'Failed to reset table' });
+      } else {
+        return res.json({ result: 'Success' });
+      }
+    });
+ });
+
 app.post('/basic/insert', function (req, res, next) {
   const { data } = req.body;
   database.insertPerformanceData(data, 'Basic', (error, result) => {
@@ -28,7 +38,7 @@ app.post('/basic/insert', function (req, res, next) {
   });
 });
 
-app.post('/advanced/insert', function (req, res, next) {
+app.post('/advance/insert', function (req, res, next) {
   const { data } = req.body;
   database.insertPerformanceData(data, 'Advanced', (error, result) => {
     if(error) {
@@ -49,13 +59,25 @@ app.get('/performance/data', function(req, res, next) {
   })
 });
 
-app.get('/performance/result', function(req, res, next) {
+app.get('/basic/result', function(req, res, next) {
   const { festivalId } = req.query;
   database.getPerformancesForComputation(festivalId, (error, result) => {
     if(error) {
       return next(error);
     }
     const { error: computationError, result: computationResult } = backend.compute(result)
+    if (computationError) return next(computationError);
+    return res.json(computationResult);
+  })
+})
+
+app.get('/popularity/result', function(req, res, next) {
+  const { festivalId } = req.query;
+  database.getPerformancesForComputation(festivalId, (error, result) => {
+    if(error) {
+      return next(error);
+    }
+    const { error: computationError, result: computationResult } = backend.computePopularity(result)
     if (computationError) return next(computationError);
     return res.json(computationResult)
   })

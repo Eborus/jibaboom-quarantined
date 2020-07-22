@@ -13,7 +13,7 @@ function connect() {
 }
 
 //Run npm run resetTable to reset the database. Aka, drops the table and creates a new table with empty values.
-function resetTable() {
+function resetTable(callback) {
     const client = connect();
     const query = `
         DROP TABLE IF EXISTS musicFestival;
@@ -30,8 +30,9 @@ function resetTable() {
         );
     `;
     client.query(query, (err, res) => {
-        console.log(err, res)
-        client.end()
+        console.log(err, res);
+        client.end();
+        callback(err, res);
     })
 }
 
@@ -39,7 +40,7 @@ function resetTable() {
 function insertPerformanceData(musicFestival, dataType, callback) {
     let i = 1;
     const queryStructure = musicFestival.map(music => `($${i++}, $${i++}, $${i++} ,$${i++}, $${i++}, $${i++}, $${i++})`).join(',');
-    const values = musicFestival.reduce((reduced, music) => [...reduced, dataType, music.performance_id, music.festival_id, music.performance, music.startTime, music.endTime, music.popularity], []);
+    const values = musicFestival.reduce((reduced, music) => [...reduced, dataType, music.performanceId, music.festivalId, music.performance, music.startTime, music.endTime, music.popularity], []);
     if (musicFestival.length == 0) {
         const err = "";
         const result = "";

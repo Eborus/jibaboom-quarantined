@@ -97,8 +97,8 @@ Content-Type: application/json
             "endTime":"1555"
         },
         {
-            "performanceId":1234567891,
-            "festivalId":9999999992,
+            "performance_Id":1234567891,
+            "festival_Id":9999999992,
             "startTime":"2350",
             "endTime":"2355"
         }
@@ -115,8 +115,8 @@ Content-Type: application/json
 {
 	"data": [
         {
-            "performanceId": 3334567895,
-            "festivalId": 3334567891,
+            "performance_Id": 3334567895,
+            "festival_Id": 3334567891,
             "endTime": "2230"
         }
     ]

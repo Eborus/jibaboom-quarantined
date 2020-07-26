@@ -22,6 +22,13 @@ const basicResultQuery = {
     festivalId: null,
 };
 
+// Init variables
+const basicDataUrl = 'http://localhost:3000/performance/data';
+const basicResultUrl = 'http://localhost:3000/basic/result';
+const advanceResultUrl = 'http://localhost:3000/advance/result';
+var resultType = 0;
+
+// Pagination Handling
 const dataPaginationFunction = {
     changePage: function(delta) {
         basicDataQuery['maxPages'] = Math.floor((defaults['maxEntries'] - 1) / basicDataQuery['pageSize']);
@@ -38,9 +45,6 @@ const dataPaginationFunction = {
         basicDataQuery['page'] = 0;
     }
 };
-
-const basicDataUrl = 'http://localhost:3000/performance/data';
-const basicResultUrl = 'http://localhost:3000/basic/result';
 
 //Filtering data and generating table
 function populateDataTable(data) {
@@ -160,6 +164,15 @@ function changeDataType(event) {
 // Result Viewer Part
 function registerBasicResultInput() {
     $('#basic-result-input-form').submit(computeResults);
+    $('#inputSelection').change(changeResultType);
+}
+
+function changeResultType(event) {
+    resultType = document.getElementById("inputSelection").value;
+    console.log("ResultType is " + resultType);
+    if(document.getElementById("inputFestivalId").value != '') {
+        computeResults();
+    }
 }
 
 function computeResults() {
@@ -178,17 +191,26 @@ function refreshResultTable() {
 }
 
 function getResultFromBackend(callback) {
+    if(resultType == 0) { // Basic Result Query
     $.get(basicResultUrl, basicResultQuery).done((result) => callback(null, result))
         .fail((message) => callback(message, null));
+    } else if (resultType == 1) { // Advanced Result Query
+        $.get(advanceResultUrl, basicResultQuery).done((result) => callback(null, result))
+        .fail((message) => callback(message, null));
+    } else { // Fallback to most performances if an unexpected error occurs
+        console.log("A bug has been detected! ResultType value was " + resultType);
+        resultType = 0;
+        $.get(basicResultUrl, basicResultQuery).done((result) => callback(null, result))
+        .fail((message) => callback(message, null));
+    }
 }
 
 function populateResultTable(data) {
-    const dataTableHtml = data.map(({ id, performance_id, festival_id, performance, starttime, endtime, popularity }) => `
+    const dataTableHtml = data.result.map(({ id, performance_id, festival_id, starttime, endtime, popularity }) => `
             <tr>
                 <th scope="row">${id}</th>
                 <td>${performance_id}</td>
                 <td>${festival_id}</td>
-                <td>${performance}</td>
                 <td>${starttime}</td>
                 <td>${endtime}</td>
                 <td>${popularity}</td>

@@ -20,7 +20,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/reset', function (req, res) {
   database.resetTable(function (err, result) {
       if (err) {
-        return res.json({ error: 'Failed to reset table' });
+        // return res.json({ error: 'Failed to reset table' });
+        return next({ message: "Failed to reset table!", status: 400});
       } else {
         return res.json({ result: 'Success' });
       }
@@ -67,11 +68,24 @@ app.get('/basic/result', function(req, res, next) {
     }
     const { error: computationError, result: computationResult } = backend.compute(result)
     if (computationError) return next(computationError);
-    return res.json(computationResult);
+    for (let i = 0; i < computationResult.length; i++) {
+      computationResult[i]['performanceId'] = parseInt(computationResult[i].performance_id);
+      computationResult[i]['startTime'] = computationResult[i].starttime;
+      computationResult[i]['endTime'] = computationResult[i].endtime;
+      // delete computationResult[i]['id'];
+      // delete computationResult[i]['data_type'];
+      // delete computationResult[i]['performance_id'];
+      // delete computationResult[i]['festival_id'];
+      // delete computationResult[i]['performance'];
+      // delete computationResult[i]['starttime'];
+      // delete computationResult[i]['endtime'];
+      // delete computationResult[i]['popularity'];
+    }
+    return res.json({result: computationResult});
   })
 })
 
-app.get('/popularity/result', function(req, res, next) {
+app.get('/advance/result', function(req, res, next) {
   const { festivalId } = req.query;
   database.getPerformancesForComputation(festivalId, (error, result) => {
     if(error) {
@@ -79,13 +93,26 @@ app.get('/popularity/result', function(req, res, next) {
     }
     const { error: computationError, result: computationResult } = backend.computePopularity(result)
     if (computationError) return next(computationError);
-    return res.json(computationResult)
+    for (let i = 0; i < computationResult.length; i++) {
+      computationResult[i]['performanceId'] = parseInt(computationResult[i].performance_id);
+      computationResult[i]['startTime'] = computationResult[i].starttime;
+      computationResult[i]['endTime'] = computationResult[i].endtime;
+      // delete computationResult[i]['id'];
+      // delete computationResult[i]['data_type'];
+      // delete computationResult[i]['performance_id'];
+      // delete computationResult[i]['festival_id'];
+      // delete computationResult[i]['performance'];
+      // delete computationResult[i]['starttime'];
+      // delete computationResult[i]['endtime'];
+      // delete computationResult[i]['popularity'];
+    }
+    return res.json({result: computationResult})
   })
 })
 
 // Test if api works
 app.get('/', (req, res, next) => {
-  res.json({ hello: 'world' });
+  next({ message: "error!", status: 500, code: 12345});
 });
 
 // catch 404 and forward to error handler
@@ -103,7 +130,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.json({
     error: err.message,
-    code: err.status || 500,
+    code: err.code || 500,
   });
 });
 

@@ -9,6 +9,9 @@ function compute(data) {
 }
 
 function sortArrayOfPerformances(performances) {
+    if (performances.length == 0) {
+        return performances;
+    }
     performances.sort((a, b) => a.endtime - b.endtime); // Sorts the array of performances on ascending end time
     console.log(performances);
 
@@ -93,7 +96,7 @@ console.log(performances);
 
             if (index != -1) {
                 console.log("Element being replaced: [" + popularityArray[i] + "] at index " + i);
-                popularityArray[i] = popularityArray[index];
+                popularityArray[i] = [...popularityArray[index]];
                 console.log("New Value after set: " + popularityArray[i]);
                 console.log("New popularity array after set: ");
                 console.log(popularityArray);

@@ -98,6 +98,11 @@ function getPerformanceDetails(dataType, festivalId, startTime, endTime, page = 
 }
 
 function getPerformancesForComputation(festival_id, callback) {
+    if(!festival_id) {
+        const error = {message: "Expected Error due to Missing Field", status: 400}
+        callback(error);
+        return;
+    }
     const client = connect();
     client.query(`SELECT * FROM musicFestival WHERE festival_id = $1`, [festival_id], (err, { rows }) => {
         client.end();

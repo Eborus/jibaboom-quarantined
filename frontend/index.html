@@ -52,14 +52,14 @@
         <div class="col-2">
         <select class="form-control form-control-sm" id="inputSelection">
           <option value="0">Most Performances</option>
-          <option value="1">Most Popular</option>
+          <option value="1">Max Popularity</option>
         </select>
       </div>
       <div class="card-body">
         <form id="basic-result-input-form">
             <div class="form-row">
               <div class="col-3">
-                <input key="festivalId" type="number" class="form-control" placeholder="Festival Id" required>
+                <input id="inputFestivalId" key="festivalId" type="number" class="form-control" placeholder="Festival Id" required>
               </div>
               <button type="submit" class="btn btn-primary mb-2 pl-5 pr-5">Compute</button>
             </div>
@@ -71,7 +71,6 @@
                 <th scope="col">id</th>
                 <th scope="col">Performance Id</th>
                 <th scope="col">Festival Id</th>
-                <th scope="col">Performance</th>
                 <th scope="col">Start Time</th>
                 <th scope="col">End Time</th>
                 <th scope="col">Popularity</th>

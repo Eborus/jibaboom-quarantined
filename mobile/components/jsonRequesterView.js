@@ -3,7 +3,7 @@ import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'rea
 
 export default class JsonRequestorView extends Component {
     state = {
-        requestUrl: 'Byebye'
+        requestUrl: {}
     }
     constructor(props) {
         super(props);

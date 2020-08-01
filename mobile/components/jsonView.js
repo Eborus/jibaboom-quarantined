@@ -3,6 +3,7 @@ import { View, Button, } from 'react-native';
 
 import JsonRequestorView from './jsonRequesterView';
 import JsonPrinterView from './jsonPrinterView';
+import JsonDataView from './jsonDataView';
 import cacheManager from '../managers/cacheManager';
 
 export default class JsonView extends Component {
@@ -82,6 +83,7 @@ export default class JsonView extends Component {
                 <JsonPrinterView title='JSON Response' json={this.state.data} />
                 <JsonPrinterView title='Cache' json={this.state.cacheData} />
                 <Button title="Clear Cache" onPress={this.onClearCache} />
+                <JsonDataView />
             </View>
         )
     }

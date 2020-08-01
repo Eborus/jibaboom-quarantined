@@ -2804,9 +2804,15 @@
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
+<<<<<<< HEAD
                         "startOffsets": "55",
                         "endColumns": "100",
                         "endOffsets": "151"
+=======
+                        "startOffsets": "17",
+                        "endColumns": "47",
+                        "endOffsets": "60"
+>>>>>>> RuiYang/branching
                     },
                     "to": {
                         "startLines": "30",
@@ -2910,10 +2916,17 @@
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
+<<<<<<< HEAD
                         "startOffsets": "55",
                         "endLines": "5",
                         "endColumns": "12",
                         "endOffsets": "223"
+=======
+                        "startOffsets": "57",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "237"
+>>>>>>> RuiYang/branching
                     },
                     "to": {
                         "startLines": "3",

@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1891313414/HelloWorld.iml" filepath="$PROJECT_DIR$/.idea/modules/1891313414/HelloWorld.iml" group="HelloWorld" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app.iml" group="HelloWorld/app" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-722381440/react-native-community_async-storage.iml" filepath="$PROJECT_DIR$/.idea/modules/-722381440/react-native-community_async-storage.iml" group="HelloWorld/react-native-community_async-storage" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1357430047/HelloWorld.iml" filepath="$PROJECT_DIR$/.idea/modules/1357430047/HelloWorld.iml" group="HelloWorld" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/app.iml" filepath="$PROJECT_DIR$/.idea/app.iml" group="HelloWorld/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2084508359/react-native-community_async-storage.iml" filepath="$PROJECT_DIR$/.idea/modules/2084508359/react-native-community_async-storage.iml" group="HelloWorld/react-native-community_async-storage" />
     </modules>
   </component>
 </project>

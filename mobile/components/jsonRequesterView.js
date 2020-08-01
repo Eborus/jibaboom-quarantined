@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import JsonSearch from './jsonSearch';
 
 export default class JsonRequestorView extends Component {
     state = {
-        requestUrl: 'Byebye'
+        requestUrl: {}
     }
     constructor(props) {
         super(props);
@@ -19,14 +20,17 @@ export default class JsonRequestorView extends Component {
     render() {
         return (
             <View>
-                <View style={styles.row}>
-                    <Text style={styles.text}>Display</Text>
-                    <TextInput onChangeText={this.onTextInputChange} style={styles.textInput} />
-                    <Text style={styles.text}>Entries</Text>
+                <View>
+                    {/* <JsonSearch/> */}
+                    <View style={styles.row}>
+                        <Text style={styles.text}>Display</Text>
+                        <TextInput onChangeText={this.onTextInputChange} style={styles.textInput} />
+                        <Text style={styles.text}>Entries</Text>
+                    </View>
+                    <TouchableOpacity onPress={this.onGetPress} style={styles.appButtonContainer}>
+                        <Text style={styles.appButtonText}>Search</Text>
+                    </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={this.onGetPress} style={styles.appButtonContainer}>
-                    <Text style={styles.appButtonText}>Search</Text>
-                </TouchableOpacity>
             </View>
         )
     }
@@ -48,7 +52,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
     },
     textInput: {
-        color: '#999999',
+        color: 'white',
         paddingHorizontal: 12,
         fontSize: 20,
     },

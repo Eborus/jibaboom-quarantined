@@ -91,8 +91,14 @@ function getPerformanceDetails(dataType, festivalId, startTime, endTime, page = 
     const query = `SELECT * FROM musicFestival ${whereClause} ${limitOffsetClause}`;
 
     const client = connect();
-    client.query(query, values, function (err, { rows }) {
+    client.query(query, values, function (err, result) {
         client.end();
+        if (err) {
+            // result is null; thus, cannot access the "rows" key from result. i.e. result.rows will throw an error.
+            console.log(err);
+            return callback(err, result);
+        }
+        const {rows} = result;
         callback(err, rows);
     })
 }

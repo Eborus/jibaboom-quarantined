@@ -1,24 +1,29 @@
 import React, { Component } from "react"
 import { TextField, InputField, Button, View } from 'react-native';
 
-const url = 'http://10.0.2.2:3000/performance/data/'
+const url = 'http://192.168.1.21:3000/performance/data?dataType=0&festivalId=&startTime=&endTime=&page=0&pageSize=999&maxEntries=0'
 
 export default class JsonSearch extends Component {
     constructor() {
         state = {
+            dataType: 0,
             festivalId: 0,
             startTime: '',
             endTime: '',
             error: null,
         }
-        this.updateFestivalId = this.updateFestivalId.bind(this);
     }
     updateFestivalId(festivalId) {
         this.setState({ festivalId: festivalId });
     }
     submitForm() {
-        url += `festivalId=${this.state.festivalId}&startTime=${this.state.startTime}`;
-        fetch(url)
+        // url += `festivalId=''&startTime=''`;
+        console.log(url)
+        let req = new Request(url, {
+            method: 'GET',
+        });
+
+        fetch(req)
             .then(response => response.json())
             .then(json => console.log(json))
             .catch(error => this.setState({ error }))
@@ -27,7 +32,7 @@ export default class JsonSearch extends Component {
         return (
             <View>
                 <TextField>ERROR! {JSON.stringify(this.state.error)}</TextField>
-                <InputField onChange={this.updateFestivalId}></InputField>
+                <InputField onChange={updateFestivalId(festivalId)}></InputField>
                 <Button onClick={this.submitForm}>Submit</Button>
             </View>
         )

@@ -51,6 +51,7 @@ app.post('/advance/insert', function (req, res, next) {
 });
 
 app.get('/performance/data', function(req, res, next) {
+  console.log(req.query)
   const { dataType, festivalId, startTime, endTime, page, pageSize} = req.query;
   database.getPerformanceDetails(dataType, festivalId, startTime, endTime, page, pageSize, (error, result) =>{
     if(error) {

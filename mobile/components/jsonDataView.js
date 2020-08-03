@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import { View, SafeAreaView, ActivityIndicator, FlatList, Text, StyleSheet } from "react-native";
 
-const basicDataUrl = 'http://10.0.2.2:3000/performance/data'
+const basicDataUrl = 'http://192.168.1.21:3000/performance/data?dataType=0&festivalId=&startTime=&endTime=&page=0&pageSize=999&maxEntries=0'
 const testURL = 'https://reactnative.dev/movies.json'
 
 export default DataView = () => {

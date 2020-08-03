@@ -1,9 +1,0 @@
-<<<<<<< HEAD
-#Wed Jul 22 20:20:06 SGT 2020
-base.0=C\:\\Users\\Owner\\Desktop\\Poly Notes Year 1\\Year 2\\ADES\\QuarantinedGit\\jibaboom-quarantined\\mobile\\android\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-=======
-#Wed Jul 22 20:04:27 SGT 2020
-base.0=C\:\\Users\\1game\\Desktop\\ADES\\jibaboom-quarantined\\mobile\\android\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
->>>>>>> RuiYang/branching
-path.0=classes.dex
-renamed.0=classes.dex

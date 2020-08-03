@@ -175,3 +175,6 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/basic/result
+
+###
+GET http://192.168.1.131:3000/performance/data?dataType=0&festivalId=&startTime=&endTime=&page=0&pageSize=999&maxEntries=0

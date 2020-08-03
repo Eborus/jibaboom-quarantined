@@ -1,0 +1,4 @@
+#Mon Aug 03 10:26:07 SGT 2020
+base.0=C\:\\Users\\Owner\\Desktop\\Poly Notes Year 1\\Year 2\\ADES\\QuarantinedGit\\jibaboom-quarantined\\mobile\\android\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

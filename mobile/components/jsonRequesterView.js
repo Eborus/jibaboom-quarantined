@@ -12,7 +12,7 @@ export default class JsonRequestorView extends Component {
         this.onGetPress = this.onGetPress.bind(this);
     }
     onTextInputChange(changedText) {
-        this.setState({ requestUrl: changedText })
+        this.setState({ requestUrl: `http://192.168.1.21:3000/performance/data?dataType=0&festivalId=&startTime=&endTime=&page=0&pageSize=${changedText}&maxEntries=0` })
     }
     onGetPress() {
         this.props.onGetPress(this.state.requestUrl);

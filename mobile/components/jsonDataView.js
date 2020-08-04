@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from "react";
-import { View, SafeAreaView, ActivityIndicator, FlatList, Text, StyleSheet, ScrollView } from "react-native";
+import { View, SafeAreaView, ActivityIndicator, FlatList, Text, StyleSheet } from "react-native";
 
 const basicDataUrl = 'http://192.168.1.21:3000/performance/data?dataType=0&festivalId=&startTime=&endTime=&page=0&pageSize=999&maxEntries=0'
 const testURL = 'https://reactnative.dev/movies.json'
@@ -17,16 +17,13 @@ export default DataView = () => {
     }, []);
 
     return (
-        <View style={style.itemcontainer}>
+        <View style={{ flex: 1, padding: 24 }}>
             {isLoading ? <ActivityIndicator /> : (
                 <FlatList style={style.text}
                     data={data}
-                    initialNumToRender={data.length}
-                    keyExtractor={({ id }, index) => id.toString()}
-                    renderItem={({ item, }) => (
-                    <View style={style.items}>
-                    <Text style={style.itemText}>{item.id}, {item.festival_id}, {item.starttime}</Text>
-                    </View>
+                    keyExtractor={({ id }, index) => id}
+                    renderItem={({ item }) => (
+                        <Text style={style.text}>{item.id}, {item.festival_id}</Text>
                     )}
                 />
             )}
@@ -35,20 +32,6 @@ export default DataView = () => {
 };
 const style = StyleSheet.create({
     text: {
-        color: '#999999'
-    },
-    itemcontainer: {
-        marginTop: 20,
-        marginBottom: 8
-    },
-    items: {
-        borderBottomColor: '#bfbfbf',
-        borderBottomWidth: 1,
-        marginBottom: 10
-    },
-    itemText: {
         color: '#999999',
-        fontSize: 16,
-        padding: 5
-    }
+    },
 });

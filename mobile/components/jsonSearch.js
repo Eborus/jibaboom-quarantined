@@ -1,40 +1,73 @@
-import React, { Component } from "react"
-import { TextField, InputField, Button, View } from 'react-native';
+import React, { Component } from 'react';
+import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const url = 'http://192.168.1.21:3000/performance/data?dataType=0&festivalId=&startTime=&endTime=&page=0&pageSize=999&maxEntries=0'
-
-export default class JsonSearch extends Component {
-    constructor() {
-        state = {
-            dataType: 0,
-            festivalId: 0,
-            startTime: '',
-            endTime: '',
-            error: null,
-        }
+export default class JsonRequestorView extends Component {
+    state = {
+        requestUrl: {},
+        startTime: '',
+        endTime: '',
     }
-    updateFestivalId(festivalId) {
-        this.setState({ festivalId: festivalId });
+    constructor(props) {
+        super(props);
+        this.updateStartTime = this.updateStartTime.bind(this);
+        this.updateEndTime = this.updateEndTime.bind(this);
+        this.onSearchGet = this.onSearchGet.bind(this);
     }
-    submitForm() {
-        // url += `festivalId=''&startTime=''`;
-        console.log(url)
-        let req = new Request(url, {
-            method: 'GET',
-        });
-
-        fetch(req)
-            .then(response => response.json())
-            .then(json => console.log(json))
-            .catch(error => this.setState({ error }))
+    updateStartTime(changedText) {
+        this.setState({ startTime: changedText });
+    }
+    updateEndTime(changedText) {
+        this.setState({ endTime: changedText });
+    }
+    onSearchGet() {
+        this.props.onSearchGet(`http://192.168.1.21:3000/performance/data?dataType=0&festivalId=&startTime=${this.state.startTime}&endTime=${this.state.endTime}&page=0&pageSize=999&maxEntries=0`);
     }
     render() {
         return (
             <View>
-                <TextField>ERROR! {JSON.stringify(this.state.error)}</TextField>
-                <InputField onChange={updateFestivalId(festivalId)}></InputField>
-                <Button onClick={this.submitForm}>Submit</Button>
+                <View style={styles.row}>
+                    <View style={styles.row}>
+                        <TextInput onChangeText={this.updateStartTime} style={styles.textInput} />
+                    </View>
+                    <View style={styles.row}>
+                        <TextInput onChangeText={this.updateEndTime} style={styles.textInput} />
+                    </View>
+                </View>
+                <TouchableOpacity onPress={this.onSearchGet} style={styles.appButtonContainer}>
+                    <Text style={styles.appButtonText}>Search</Text>
+                </TouchableOpacity>
             </View>
         )
     }
 }
+
+const styles = StyleSheet.create({
+    button: {
+        backgroundColor: '#945104',
+    },
+    appButtonContainer: {
+        backgroundColor: "#945104",
+        paddingVertical: 10,
+        paddingHorizontal: 12
+    },
+    appButtonText: {
+        fontSize: 25,
+        color: "#999999",
+        fontWeight: "bold",
+        alignSelf: "center",
+    },
+    textInput: {
+        color: '#999999',
+        fontSize: 20,
+        borderColor: 'white',
+        borderWidth: 5,
+        paddingHorizontal: 12,
+    },
+    row: {
+        flexDirection: 'row',
+        alignSelf: 'stretch'
+    },
+    filler: {
+        alignSelf: "center"
+    }
+});

@@ -1,26 +1,37 @@
-import React, { Component } from "react";
-import { View } from "react-native";
+import React, { Component, useState, useEffect } from "react";
+import { View, SafeAreaView, ActivityIndicator, FlatList, Text, StyleSheet } from "react-native";
 
-export default class DataView extends Component {
-    state = {
-        basicDataUrl: 'http://localhost:3000/performance/data'
-    }
+const basicDataUrl = 'http://192.168.1.21:3000/performance/data?dataType=0&festivalId=&startTime=&endTime=&page=0&pageSize=999&maxEntries=0'
+const testURL = 'https://reactnative.dev/movies.json'
 
-    constructor(props) {
-        super(props);
-        this.getData = this.getData.bind(this)
-    }
-    getData(basicDataUrl) {
+export default DataView = () => {
+    const [isLoading, setLoading] = useState(true);
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
         fetch(basicDataUrl)
-            .then(response => response.json())
-            .then(data => console.log(data));
-    }
+            .then((response) => response.json())
+            .then((json) => setData(json))
+            .catch((error) => console.error(error))
+            .finally(() => setLoading(false));
+    }, []);
 
-    render() {
-        return (
-            <View>
-                <View getData={this.getData}></View>
-            </View>
-        )
-    }
-}
+    return (
+        <View style={{ flex: 1, padding: 24 }}>
+            {isLoading ? <ActivityIndicator /> : (
+                <FlatList style={style.text}
+                    data={data}
+                    keyExtractor={({ id }, index) => id}
+                    renderItem={({ item }) => (
+                        <Text style={style.text}>{item.id}, {item.festival_id}</Text>
+                    )}
+                />
+            )}
+        </View>
+    );
+};
+const style = StyleSheet.create({
+    text: {
+        color: '#999999',
+    },
+});

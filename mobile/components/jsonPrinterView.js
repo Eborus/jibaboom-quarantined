@@ -40,5 +40,6 @@ const style = StyleSheet.create({
     lineContent: {
         flex: 9,
         padding: 5,
+        color: '#999999'
     },
 });

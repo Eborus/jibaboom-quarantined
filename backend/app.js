@@ -123,10 +123,10 @@ app.get('/advance/result', function(req, res, next) {
   })
 })
 
-// Test if api works
-app.get('/', (req, res, next) => {
-  next({ message: "error!", status: 500, code: 12345});
-});
+// // Test if api works
+// app.get('/', (req, res, next) => {
+//   next({ message: "error!", status: 500, code: 12345});
+// });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

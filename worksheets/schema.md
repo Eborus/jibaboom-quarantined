@@ -11,11 +11,13 @@ The following are examples of how you can create a table, replace the examples w
 ```sql
         CREATE TABLE musicFestival (
             id SERIAL PRIMARY KEY,
-            performance_id INTEGER UNIQUE NOT NULL,
-            festival_id INTEGER NOT NULL,
-            performance VARCHAR(40) NOT NULL,
+            data_type VARCHAR(20) NOT NULL,
+            performance_id BIGINT NOT NULL,
+            festival_id BIGINT NOT NULL,
+            performance VARCHAR(40),
             startTime CHAR(4) NOT NULL,
             endTime CHAR(4) NOT NULL,
-            popularity INTEGER NOT NULL
+            popularity INTEGER,
+            UNIQUE (data_type, performance_id)
         );
 ```

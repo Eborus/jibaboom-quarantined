@@ -4,18 +4,14 @@ This report is for you to document the progres of your project. You should also 
 
 ## What have I done last week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   Fixed pagination for when the user applies a filter back and forth and changes the pagesize afterwards
+-   Added in data types for fitlering of basic and advanced data within the same table.
 
 ## What do I plan to do next week
 
--   Worked on...
--   Worked on...
--   Changed....
+-   Start on advanced algorithm and attempt to finish the basic algorithm
+-   
 
 ## Additional Thoughts
 
--   VSCode is sick.
--   This addon is fabulous.
--   Lecturer is awesome.
+-   Surprisingly had no issues with adding in the data type filtering

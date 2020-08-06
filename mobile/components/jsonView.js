@@ -9,8 +9,8 @@ import JsonSearch from './jsonSearch'
 
 export default class JsonView extends Component {
     state = {
-        data: {},
-        cacheData: {},
+        data: [],
+        cacheData: [],
     }
 
     constructor(props) {
@@ -39,7 +39,7 @@ export default class JsonView extends Component {
     async updateCacheViewer() {
         try {
             const cacheData = await cacheManager.getAll();
-            this.setState({ cacheData })
+            this.setState( cacheData )
         } catch (error) {
             this.catchCacheError(error);
         }

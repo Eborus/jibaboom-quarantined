@@ -20,7 +20,7 @@ export default class JsonRequestorView extends Component {
         this.setState({ endTime: changedText });
     }
     onSearchGet() {
-        this.props.onSearchGet(`http://192.168.1.21:3000/performance/data?dataType=0&festivalId=&startTime=${this.state.startTime}&endTime=${this.state.endTime}&page=0&pageSize=999&maxEntries=0`);
+        this.props.onSearchGet(`http://192.168.1.131:3000/performance/data?dataType=0&festivalId=&startTime=${this.state.startTime}&endTime=${this.state.endTime}&page=0&pageSize=999&maxEntries=0`);
     }
     render() {
         return (

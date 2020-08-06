@@ -1,0 +1,301 @@
+--- Database ---
+//Database connection stuff, do not touch unless you wanna switch between the backup and the main database, in which you'd only have to change connectionString. Just copy
+//and paste the url
+
+const { Client } = require('pg');
+const connectionString = 'postgres://gufhunsh:W3aGK2IiEFfhTRC63WfpuIY39qQHfR4V@john.db.elephantsql.com:5432/gufhunsh'
+
+function connect() {
+    const client = new Client({
+        connectionString: connectionString,
+    });
+    client.connect();
+    return client;
+}
+
+//Run npm run resetTable to reset the database. Aka, drops the table and creates a new table with empty values.
+function resetTable() {
+    const client = connect();
+    const query = `
+        DROP TABLE IF EXISTS musicFestival;
+        CREATE TABLE musicFestival (
+            id SERIAL PRIMARY KEY,
+            performance_id BIGINT UNIQUE NOT NULL,
+            festival_id BIGINT NOT NULL,
+            performance VARCHAR(40),
+            startTime CHAR(4) NOT NULL,
+            endTime CHAR(4) NOT NULL,
+            popularity INTEGER
+        );
+    `;
+    client.query(query, (err, res) => {
+        console.log(err, res)
+        client.end()
+    })
+}
+
+//Since there is no frontend option to insert statements. Use test.http for the insert function
+function insertPerformanceData(musicFestival, callback) {
+    let i = 1;
+    const queryStructure = musicFestival.map(music => `($${i++}, $${i++}, $${i++}, $${i++}, $${i++}, $${i++})`).join(',');
+    const values = musicFestival.reduce((reduced, music) => [...reduced, music.performanceId, music.festivalId, music.performance, music.startTime, music.endTime, music.popularity], []);
+    if (musicFestival.length == 0) {
+        const err = "";
+        const result = "";
+        return callback(err, result);
+    } else {
+        const query = `INSERT INTO musicFestival (performance_id, festival_id, performance, startTime, endTime, popularity) VALUES ${queryStructure};`;
+
+        const client = connect();
+        client.query(query, values, (err, result) => {
+            callback(err, result);
+            client.end();
+        });
+    }
+}
+
+//Gets and generates the table again based on filtered search.
+function getPerformanceDetails(festivalId, startTime, endTime, page = 0, pageSize = 18, callback) { //Default should always be 18 rows.
+    let whereClause;
+    let i = 1;
+    const values = [];
+    if (!festivalId && !startTime && !endTime) whereClause = ''; //If all inputs are empty, return an empty sql query
+    else {
+        whereClause = 'WHERE ';
+        if (festivalId) {
+            whereClause += `festival_id = $${i++}`;
+            values.push(parseInt(festivalId));
+        }
+        if (startTime) { //Checks if festivalid is queried
+            whereClause += festivalId ? ` AND startTime >= $${i++}` : `startTime >= $${i++}`;
+            values.push(startTime);
+        }
+        if (endTime) { //Checks if startTime is queried, if empty then checks for festival id
+            whereClause += startTime ? ` AND endTime < $${i++}` : festivalId ? ` AND endTime < $${i++}` : `endTime < $${i++}`;
+            values.push(endTime);
+        }
+    }
+
+    let limitOffsetClause = `LIMIT $${i++} OFFSET $${i++}`; //@Rui Yang, you can choose to build the pagination upon this code structure. Or you can delete the 
+    values.push(parseInt(pageSize));                        //limitOffSetClause and do your style
+    values.push(parseInt(page) * parseInt(pageSize));
+    const query = `SELECT * FROM musicFestival ${whereClause} ${limitOffsetClause}`;
+
+    const client = connect();
+    client.query(query, values, function (err, { rows }) {
+        client.end();
+        callback(err, rows);
+    })
+}
+
+module.exports = {
+    resetTable,
+    insertPerformanceData,
+    getPerformanceDetails
+};
+
+--- Index.js ---
+//Current Issues with the pagination
+//If the user increases the rows displayed per page and goes to the next page, max page size still remains the same. Meaning if it already displays all 18 data, the user can still
+//go to the next page up to two more times with each new page returning a blank table. You can also see the no. of entries increasing despite it being abnormal.
+//Planning to fix this by Sun evening, not to worry... I hope -Jason
+
+const defaults = {
+    festivalId: null,
+    startTime: null,
+    endTime: null,
+    page: 0,
+    pageSize: 999,
+    maxEntries: 0,
+};
+
+const basicDataQuery = {
+    festivalId: null,
+    startTime: null,
+    endTime: null,
+    page: 0,
+    pageSize: 5,
+    maxPages: 3,
+};
+
+const dataPaginationFunction = {
+    changePage: function(delta) {
+        basicDataQuery['maxPages'] = Math.floor(defaults['maxEntries'] / basicDataQuery['pageSize']);
+        basicDataQuery['page'] += parseInt(delta);
+        if(basicDataQuery['page'] >= basicDataQuery['maxPages']) {
+            basicDataQuery['page'] = basicDataQuery['maxPages'];
+        } else if(basicDataQuery['page'] < 0) {
+            basicDataQuery['page'] = 0;
+        }
+    },
+    changePageSize: function (newPageSize) {
+        basicDataQuery['pageSize'] = newPageSize
+        basicDataQuery['maxPages'] = Math.floor(defaults['maxEntries'] / newPageSize);
+        basicDataQuery['page'] = 0;
+    }
+};
+
+const basicDataUrl = 'http://localhost:3000/performance/data';
+
+//Filtering data and generating table
+function populateDataTable(data) {
+    console.log(data);
+    const dataTableHtml = data.map(({ id, performance_id, festival_id, performance, starttime, endtime, popularity }) => `
+            <tr>
+                <th scope="row">${id}</th>
+                <td>${performance_id}</td>
+                <td>${festival_id}</td>
+                <td>${performance}</td>
+                <td>${starttime}</td>
+                <td>${endtime}</td>
+                <td>${popularity}</td>
+            </tr>
+    `,
+    );
+    $('#data-tbody').html(dataTableHtml);
+}
+
+function getDataFromBackend(callback) {
+    $.get(basicDataUrl, basicDataQuery).done((result) => callback(null, result))
+        .fail((message) => callback(message, null));
+}
+
+function getTotalEntries(callback) {
+    defaults['festivalId'] = basicDataQuery['festivalId'];
+    defaults['startTime'] = basicDataQuery['startTime'];
+    defaults['endTime'] = basicDataQuery['endTime'];
+    $.get(basicDataUrl, defaults).done((result) => callback(null, result))
+        .fail((message) => callback(message, null));
+}
+
+function refreshDataTable() {
+    getDataFromBackend(function (error, data) {
+        if (error) return alert(error);
+        populateDataTable(data);
+    })
+    getTotalEntries(function (error, entries) {
+        if (error) return alert(error);
+        console.log("Total number of entries returned is " + entries.length)
+        defaults['maxEntries'] = entries.length;
+        displayEntriesText(defaults['maxEntries']);
+    })
+}
+
+function filterData(event) {
+    $('#basic-data-filter-form input').not(':input[type=submit]').each((index, input) => {
+        basicDataQuery[$(input).attr('key')] = $(input).val();
+    });
+    refreshDataTable();
+    return false;
+}
+
+function registerDataFilterForm() {
+    $('#basic-data-filter-form').submit(filterData);
+}
+
+$(document).ready(function () {
+    registerDataFilterForm();
+    refreshDataTable();
+    registerBasicDataPaginationForm();
+    displayEntriesText();
+})
+
+
+// Pagination Part
+
+function registerBasicDataPaginationForm() {
+    $('#pagination-back').click(paginateData);
+    $('#pagination-forward').click(paginateData);
+    $('#rowsPerPageSelection').change(paginateData)
+}
+
+function paginateData(event) {
+    const fn = $(this).attr('fn');
+    const value = $(this).attr('value') || $(this).val();
+    dataPaginationFunction[fn](value);
+    refreshDataTable();
+}
+
+//Called at the start and each time the table is refreshed to update the entries text. Currently not responsive if the table gets more records.
+function displayEntriesText(totalRows) {
+    let maxTableRows = totalRows;
+    let displayEntryText = document.getElementById("entriesText");
+    let count = basicDataQuery['page'];
+    let maxIndex = basicDataQuery['pageSize'] * (count + 1);
+    let minIndex = (maxIndex - basicDataQuery['pageSize']) + 1
+
+    if (maxIndex > maxTableRows) {
+        maxIndex = maxTableRows;
+    }
+    if (minIndex < 1 && minIndex < maxTableRows) {
+        minIndex = 1;
+    }
+
+    displayEntryText.innerHTML = "Showing " + minIndex + " to " + maxIndex + " of " + maxTableRows + " entries";
+}
+
+--- Api ---
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+var cors = require('cors');
+
+const database = require('./database');
+
+var app = express();
+
+app.use(cors());
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.post('/basic/insert', function (req, res, next) {
+  const { data } = req.body;
+  database.insertPerformanceData(data, (error, result) => {
+    if(error) {
+      return next(error);
+    }
+    console.log(result);
+    res.json({result: "Success"});
+  });
+});
+
+app.get('/performance/data', function(req, res, next) {
+  const { festivalId, startTime, endTime, page, pageSize} = req.query;
+  database.getPerformanceDetails(festivalId, startTime, endTime, page, pageSize, (error, result) =>{
+    if(error) {
+      return next(error);
+    }
+    res.json(result)
+  })
+});
+
+// Test if api works
+app.get('/', (req, res, next) => {
+  res.json({ hello: 'world' });
+});
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.json({
+    error: err.message,
+    code: err.status || 500,
+  });
+});
+
+module.exports = app;

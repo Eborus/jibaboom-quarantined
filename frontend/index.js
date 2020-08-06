@@ -23,9 +23,9 @@ const basicResultQuery = {
 };
 
 // Init variables
-const basicDataUrl = 'http://localhost:3000/performance/data';
-const basicResultUrl = 'http://localhost:3000/basic/result';
-const advanceResultUrl = 'http://localhost:3000/advance/result';
+const basicDataUrl = 'https://jibaboom-2b21-quarantined.herokuapp.com/performance/data';
+const basicResultUrl = 'https://jibaboom-2b21-quarantined.herokuapp.com/basic/result';
+const advanceResultUrl = 'https://jibaboom-2b21-quarantined.herokuapp.com/advance/result';
 var resultType = 0;
 
 // Pagination Handling

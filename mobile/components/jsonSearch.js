@@ -34,14 +34,16 @@ export default class JsonRequestorView extends Component {
             <View>
                 <View style={styles.row}>
                     <View style={styles.row}>
+                        <Text style={styles.text}>Start Time</Text>
                         <TextInput onChangeText={this.updateStartTime} style={styles.textInput} />
                     </View>
                     <View style={styles.row}>
+                        <Text style={styles.text}>End Time</Text>
                         <TextInput onChangeText={this.updateEndTime} style={styles.textInput} />
                     </View>
                     <Picker
                         selectedValue={this.state.language}
-                        style={styles.text}
+                        style={styles.picker}
                         onValueChange={this.updateDataType}>
                         <Picker.Item label="All" value="0" />
                         <Picker.Item label="Basic" value="1" />
@@ -75,19 +77,25 @@ const styles = StyleSheet.create({
         color: '#999999',
         fontSize: 20,
         borderColor: 'white',
-        borderWidth: 5,
-        paddingHorizontal: 12,
+        borderWidth: 2,
     },
     row: {
         flexDirection: 'row',
-        alignSelf: 'stretch'
     },
     filler: {
         alignSelf: "center"
     },
-    text: {
+    picker: {
         height: 50,
         width: 250,
-        color: "#999999"
+        color: "#999999",
+        fontSize: 20,
+        alignSelf: "center",
+    },
+    text:{
+        color: "#999999",
+        alignSelf: "center",
+        marginHorizontal: 10,
+        fontSize: 20,
     }
 });

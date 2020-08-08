@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity, } from 'react-native';
 import { Picker } from '@react-native-community/picker';
 
-export default class JsonRequestorView extends Component {
+export default class JsonSearchDataViewer extends Component {
     state = {
         requestUrl: {},
+        festivalid: '',
         startTime: '',
         endTime: '',
         language: 'All',
@@ -12,10 +13,14 @@ export default class JsonRequestorView extends Component {
     }
     constructor(props) {
         super(props);
+        this.updateFestivalID = this.updateFestivalID.bind(this)
         this.updateStartTime = this.updateStartTime.bind(this);
         this.updateEndTime = this.updateEndTime.bind(this);
         this.onSearchGet = this.onSearchGet.bind(this);
         this.updateDataType = this.updateDataType.bind(this)
+    }
+    updateFestivalID(changedText) {
+        this.setState({ festivalid: changedText });
     }
     updateStartTime(changedText) {
         this.setState({ startTime: changedText });
@@ -27,12 +32,16 @@ export default class JsonRequestorView extends Component {
         this.setState({ language: itemValue, choosenIndex: itemPosition })
     }
     onSearchGet() {
-        this.props.onSearchGet(`http://192.168.1.21:3000/performance/data?dataType=${this.state.choosenIndex}&festivalId=&startTime=${this.state.startTime}&endTime=${this.state.endTime}&page=0&pageSize=999&maxEntries=0`);
+        this.props.onSearchGet(`http://192.168.1.21:3000/performance/data?dataType=${this.state.choosenIndex}&festivalId=${this.state.festivalid}&startTime=${this.state.startTime}&endTime=${this.state.endTime}&page=0&pageSize=999&maxEntries=0`);
     }
     render() {
         return (
             <View>
                 <View style={styles.row}>
+                    <View style={styles.row}>
+                        <Text style={styles.text}>Festival ID</Text>
+                        <TextInput onChangeText={this.updateFestivalID} style={styles.textInput} />
+                    </View>
                     <View style={styles.row}>
                         <Text style={styles.text}>Start Time</Text>
                         <TextInput onChangeText={this.updateStartTime} style={styles.textInput} />
@@ -41,17 +50,17 @@ export default class JsonRequestorView extends Component {
                         <Text style={styles.text}>End Time</Text>
                         <TextInput onChangeText={this.updateEndTime} style={styles.textInput} />
                     </View>
-                    <Picker
-                        selectedValue={this.state.language}
-                        style={styles.picker}
-                        onValueChange={this.updateDataType}>
-                        <Picker.Item label="All" value="0" />
-                        <Picker.Item label="Basic" value="1" />
-                        <Picker.Item label="Advanced" value="2" />
-                    </Picker>
                 </View>
+                <Picker
+                    selectedValue={this.state.language}
+                    style={styles.picker}
+                    onValueChange={this.updateDataType}>
+                    <Picker.Item label="All" value="0" />
+                    <Picker.Item label="Basic" value="1" />
+                    <Picker.Item label="Advanced" value="2" />
+                </Picker>
                 <TouchableOpacity onPress={this.onSearchGet} style={styles.appButtonContainer}>
-                    <Text style={styles.appButtonText}>Search</Text>
+                    <Text style={styles.appButtonText}>Filter</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -75,10 +84,10 @@ const styles = StyleSheet.create({
     },
     textInput: {
         color: '#999999',
-        fontSize: 20,
+        fontSize: 15,
         borderColor: 'white',
         borderWidth: 2,
-        width: 53,
+        width: 43,
     },
     row: {
         flexDirection: 'row',
@@ -90,13 +99,13 @@ const styles = StyleSheet.create({
         height: 50,
         width: 250,
         color: "#999999",
-        fontSize: 20,
+        fontSize: 15,
         alignSelf: "center",
     },
     text: {
         color: "#999999",
         alignSelf: "center",
         marginHorizontal: 10,
-        fontSize: 20,
+        fontSize: 15,
     }
 });

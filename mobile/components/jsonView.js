@@ -5,18 +5,21 @@ import JsonRequestorView from './jsonRequesterView';
 import JsonPrinterView from './jsonPrinterView';
 import JsonDataView from './jsonDataView';
 import cacheManager from '../managers/cacheManager';
-import JsonSearch from './jsonSearch'
+import JsonSearchDataViewer from './jsonSearchDataViewer'
+import JsonSearchResultViewer from './jsonSearchResultViewer'
 
 export default class JsonView extends Component {
     state = {
-        data: {},
+        ddata: {},
+        rdata: {},
         cacheData: {},
     }
 
     constructor(props) {
         super(props);
         this.onGetPress = this.onGetPress.bind(this);
-        this.onSearchGet = this.onSearchGet.bind(this);
+        this.onSearchGetDataViewer = this.onSearchGetDataViewer.bind(this);
+        this.onSearchGetResultViewer = this.onSearchGetResultViewer.bind(this);
         this.updateCacheViewer = this.updateCacheViewer.bind(this);
         this.catchCacheError = this.catchCacheError.bind(this);
         this.onClearCache = this.onClearCache.bind(this);
@@ -55,7 +58,7 @@ export default class JsonView extends Component {
                     .catch(this.catchCacheError);
                 return json
             })
-            .then(data => this.setState({ data }))
+            .then(ddata => this.setState({ ddata }))
             .catch((error) => {
                 console.log(error)
                 const result = { error: error.message }
@@ -64,11 +67,11 @@ export default class JsonView extends Component {
                     .then((cacheJson) => {
                         if (!cacheJson) {
                             result.cacheMessage = 'URL not cached '
-                            return this.setState({ data: result })
+                            return this.setState({ ddata: result })
                         }
                         result.json = cacheJson;
                         result.cached = true;
-                        this.setState({ data: result })
+                        this.setState({ ddata: result })
                     }).catch((cacheError) => {
                         this.setState({
                             data: result,
@@ -77,7 +80,7 @@ export default class JsonView extends Component {
                     })
             })
     }
-    onSearchGet(requestUrl) {
+    onSearchGetDataViewer(requestUrl) {
         fetch(requestUrl)
             .then(response => response.json())
             .then((json) => {
@@ -87,7 +90,7 @@ export default class JsonView extends Component {
                     .catch(this.catchCacheError);
                 return json
             })
-            .then(data => this.setState({ data }))
+            .then(ddata => this.setState({ ddata }))
             .catch((error) => {
                 console.log(error)
                 const result = { error: error.message }
@@ -96,14 +99,47 @@ export default class JsonView extends Component {
                     .then((cacheJson) => {
                         if (!cacheJson) {
                             result.cacheMessage = 'URL not cached '
-                            return this.setState({ data: result })
+                            return this.setState({ ddata: result })
+                        }
+                        result.json = cacheJson;
+                        result.cached = true;
+                        this.setState({ ddata: result })
+                    }).catch((cacheError) => {
+                        this.setState({
+                            ddata: result,
+                            cacheData: { error: cacheError.message }
+                        })
+                    })
+            })
+    }
+
+    onSearchGetResultViewer(requestUrl) {
+        fetch(requestUrl)
+            .then(response => response.json())
+            .then((json) => {
+                cacheManager
+                    .set(requestUrl, json)
+                    .then(this.updateCacheViewer)
+                    .catch(this.catchCacheError);
+                return json
+            })
+            .then(rdata => this.setState({ rdata }))
+            .catch((error) => {
+                console.log(error)
+                const result = { error: error.message }
+                cacheManager
+                    .get(requestUrl)
+                    .then((cacheJson) => {
+                        if (!cacheJson) {
+                            result.cacheMessage = 'URL not cached '
+                            return this.setState({ rdata: result })
                         }
                         result.json = cacheJson;
                         result.cached = true;
                         this.setState({ data: result })
                     }).catch((cacheError) => {
                         this.setState({
-                            data: result,
+                            rdata: result,
                             cacheData: { error: cacheError.message }
                         })
                     })
@@ -113,9 +149,13 @@ export default class JsonView extends Component {
     render() {
         return (
             <View>
-                <JsonSearch onSearchGet={this.onSearchGet}/>
+                {/* ResultViewer */}
+                <JsonSearchResultViewer onSearchGetResultViewer={this.onSearchGetResultViewer} />
+                <JsonPrinterView title='Result Viewer' json={this.state.rdata} />
+                {/* DataViewer */}
+                <JsonSearchDataViewer onSearchGet={this.onSearchGetDataViewer} />
                 <JsonRequestorView onGetPress={this.onGetPress} />
-                <JsonPrinterView title='JSON Response' json={this.state.data} />
+                <JsonPrinterView title='Data Viewer' json={this.state.ddata} />
                 <JsonPrinterView title='Cache' json={this.state.cacheData} />
                 <Button title="Clear Cache" onPress={this.onClearCache} />
                 <JsonDataView />

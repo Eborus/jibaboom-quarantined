@@ -45,9 +45,54 @@
     <h2 class="section-Title">Data Table</h2>
   </div>
   <div class="container">
-    <div class="card bg-dark text-white">
-      <div class="card-header">
-        Data Viewer
+    <!-- Result Viewer -->
+    <div class="card bg-dark text-white mb-5">
+      <div class="card-header row">
+        <div class="col-10">Result Viewer</div>
+        <div class="col-2">
+        <select class="form-control form-control-sm" id="inputSelection">
+          <option value="0">Most Performances</option>
+          <option value="1">Max Popularity</option>
+        </select>
+      </div>
+      <div class="card-body">
+        <form id="basic-result-input-form">
+            <div class="form-row">
+              <div class="col-3">
+                <input id="inputFestivalId" key="festivalId" type="number" class="form-control" placeholder="Festival Id" required>
+              </div>
+              <button type="submit" class="btn btn-primary mb-2 pl-5 pr-5">Compute</button>
+            </div>
+          </form>
+          <div id="computeInput"></div>
+        <table id="result-table" class="table table-striped table-dark">
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Performance Id</th>
+                <th scope="col">Festival Id</th>
+                <th scope="col">Start Time</th>
+                <th scope="col">End Time</th>
+                <th scope="col">Popularity</th>
+              </tr>
+            </thead>
+            <tbody id="result-tbody">
+            </tbody>
+          </table>
+      </div>
+    </div>
+    </div>
+    <!-- Data Viewer -->
+    <div class="card bg-dark text-white mb-5">
+      <div class="card-header row">
+        <div class="col-10">Data Viewer</div>
+        <div class="col-2">
+        <select class="form-control form-control-sm" id="dataTypeSelection">
+          <option value="0">All</option>
+          <option value="1">Basic</option>
+          <option value="2">Advanced</option>
+        </select>
+      </div>
       </div>
       <div class="card-body">
         <form id="basic-data-filter-form">
@@ -111,7 +156,6 @@
           </div>
       </div>
     </div>
-  </div>
   </div>
 </body>
 

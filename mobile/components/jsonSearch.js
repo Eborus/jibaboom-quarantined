@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         borderColor: 'white',
         borderWidth: 2,
+        width: 53,
     },
     row: {
         flexDirection: 'row',
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         alignSelf: "center",
     },
-    text:{
+    text: {
         color: "#999999",
         alignSelf: "center",
         marginHorizontal: 10,

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import JsonSearch from './jsonSearch';
 
 export default class JsonRequestorView extends Component {
     state = {
@@ -12,7 +11,7 @@ export default class JsonRequestorView extends Component {
         this.onGetPress = this.onGetPress.bind(this);
     }
     onTextInputChange(changedText) {
-        this.setState({ requestUrl: `http://192.168.1.131:3000/performance/data?dataType=0&festivalId=&startTime=&endTime=&page=0&pageSize=${changedText}&maxEntries=0` })
+        this.setState({ requestUrl: `http://192.168.1.21:3000/performance/data?dataType=0&festivalId=&startTime=&endTime=&page=0&pageSize=${changedText}&maxEntries=0` })
     }
     onGetPress() {
         this.props.onGetPress(this.state.requestUrl);
@@ -20,17 +19,14 @@ export default class JsonRequestorView extends Component {
     render() {
         return (
             <View>
-                <View>
-                    {/* <JsonSearch/> */}
-                    <View style={styles.row}>
-                        <Text style={styles.text}>Display</Text>
-                        <TextInput onChangeText={this.onTextInputChange} style={styles.textInput} />
-                        <Text style={styles.text}>Entries</Text>
-                    </View>
-                    <TouchableOpacity onPress={this.onGetPress} style={styles.appButtonContainer}>
-                        <Text style={styles.appButtonText}>Search</Text>
-                    </TouchableOpacity>
+                <View style={styles.row}>
+                    <Text style={styles.text}>Display</Text>
+                    <TextInput onChangeText={this.onTextInputChange} style={styles.textInput} />
+                    <Text style={styles.text}>Entries</Text>
                 </View>
+                <TouchableOpacity onPress={this.onGetPress} style={styles.appButtonContainer}>
+                    <Text style={styles.appButtonText}>Search</Text>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -52,7 +48,7 @@ const styles = StyleSheet.create({
         alignSelf: "center",
     },
     textInput: {
-        color: 'white',
+        color: '#999999',
         paddingHorizontal: 12,
         fontSize: 20,
     },

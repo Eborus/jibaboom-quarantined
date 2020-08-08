@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-#Sat Aug 08 15:49:36 SGT 2020
-base.0=C\:\\Users\\1game\\Desktop\\ADES\\jibaboom-quarantined\\mobile\\android\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
-=======
-#Tue Aug 04 23:13:00 SGT 2020
+#Sat Aug 08 18:04:10 SGT 2020
 base.0=C\:\\Users\\Owner\\Desktop\\Poly Notes Year 1\\Year 2\\ADES\\QuarantinedGit\\jibaboom-quarantined\\mobile\\android\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
->>>>>>> merged-modifications
 path.0=classes.dex
 renamed.0=classes.dex

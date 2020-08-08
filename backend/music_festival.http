@@ -1,0 +1,125 @@
+@url = http://localhost:3000/basic/insert
+@httpMethod = POST
+
+# @name EmptyData
+{{httpMethod}} {{url}} HTTP/1.1
+Content-Type: application/json
+
+{
+	"data": []
+}
+
+###
+
+# @name BulkInsert
+
+{{httpMethod}} {{url}} HTTP/1.1
+Content-Type: application/json
+
+{
+    "data": [
+        {
+            "performance_id":1234567890,
+            "festival_id":9999999991,
+            "startTime":"2000",
+            "endTime":"2134"
+        },
+        {
+            "performance_id":9999999991,
+            "festival_id":9999999991,
+            "startTime":"0000",
+            "endTime":"1123"
+        },
+        {
+            "performance_id":9999999992,
+            "festival_id":9999999991,
+            "startTime":"2143",
+            "endTime":"2145"
+        },
+        {
+            "performance_id":9999999993,
+            "festival_id":9999999991,
+            "startTime":"0912",
+            "endTime":"2323"
+        },
+        {
+            "performance_id":9999999994,
+            "festival_id":9999999991,
+            "startTime":"2222",
+            "endTime":"2233"
+        },
+        {
+            "performance_id":9999999995,
+            "festival_id":9999999991,
+            "startTime":"1111",
+            "endTime":"2001"
+        },
+        {
+            "performance_id":9999999996,
+            "festival_id":9999999992,
+            "startTime":"2313",
+            "endTime":"2323"
+        },
+        {
+            "performance_id":9999999997,
+            "festival_id":9999999992,
+            "startTime":"1234",
+            "endTime":"2359"
+        },
+        {
+            "performance_id":9999999998,
+            "festival_id":9999999992,
+            "startTime":"2313",
+            "endTime":"2345"
+        },
+        {
+            "performance_id":9999999999,
+            "festival_id":9999999992,
+            "startTime":"1352",
+            "endTime":"1555"
+        }
+    ]
+}
+
+###
+
+# @name PartialDuplicate
+
+{{httpMethod}} {{url}} HTTP/1.1
+Content-Type: application/json
+
+{
+	"data": [
+        {
+            "performance_id":9999999999,
+            "festival_id":9999999992,
+            "startTime":"1352",
+            "endTime":"1555"
+        },
+        {
+            "performance_Id":1234567891,
+            "festival_Id":9999999992,
+            "startTime":"2350",
+            "endTime":"2355"
+        }
+    ]
+}
+
+###
+
+# @name InvalidMissingField
+
+{{httpMethod}} {{url}} HTTP/1.1
+Content-Type: application/json
+
+{
+	"data": [
+        {
+            "performance_Id": 3334567895,
+            "festival_Id": 3334567891,
+            "endTime": "2230"
+        }
+    ]
+}
+
+###

@@ -9,10 +9,7 @@ MERGED from [com.facebook.flipper:flipper:0.33.1] C:\Users\Owner\.gradle\caches\
 MERGED from [com.facebook.flipper:flipper-network-plugin:0.33.1] C:\Users\Owner\.gradle\caches\transforms-2\files-2.1\7fdd7ff341c6b1e385b4005eca7b36a5\jetified-flipper-network-plugin-0.33.1\AndroidManifest.xml:8:1-15:12
 MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.33.1] C:\Users\Owner\.gradle\caches\transforms-2\files-2.1\c6e4cbf1ea1996b1099b54708f56c616\jetified-flipper-fresco-plugin-0.33.1\AndroidManifest.xml:8:1-15:12
 MERGED from [:react-native-community_async-storage] C:\Users\Owner\Desktop\Poly Notes Year 1\Year 2\ADES\QuarantinedGit\jibaboom-quarantined\mobile\node_modules\@react-native-community\async-storage\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
-<<<<<<< HEAD
-=======
 MERGED from [:react-native-community_picker] C:\Users\Owner\Desktop\Poly Notes Year 1\Year 2\ADES\QuarantinedGit\jibaboom-quarantined\mobile\node_modules\@react-native-community\picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
->>>>>>> RuiYang/branching
 MERGED from [com.facebook.react:react-native:0.62.2] C:\Users\Owner\.gradle\caches\transforms-2\files-2.1\5014ab3fb4de0d8cd2f9d95e27ccc3d2\jetified-react-native-0.62.2\AndroidManifest.xml:2:1-13:12
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\Owner\.gradle\caches\transforms-2\files-2.1\a083b9190df6cd0b2eed1b8d83acb3d5\swiperefreshlayout-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [org.webkit:android-jsc:r245459] C:\Users\Owner\.gradle\caches\transforms-2\files-2.1\43032aab24cbb6d5a94d999481777494\jetified-android-jsc-r245459\AndroidManifest.xml:2:1-11:12
@@ -152,11 +149,8 @@ MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.33.1] C:\Users\Owner\.
 MERGED from [com.facebook.flipper:flipper-fresco-plugin:0.33.1] C:\Users\Owner\.gradle\caches\transforms-2\files-2.1\c6e4cbf1ea1996b1099b54708f56c616\jetified-flipper-fresco-plugin-0.33.1\AndroidManifest.xml:11:5-13:41
 MERGED from [:react-native-community_async-storage] C:\Users\Owner\Desktop\Poly Notes Year 1\Year 2\ADES\QuarantinedGit\jibaboom-quarantined\mobile\node_modules\@react-native-community\async-storage\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-community_async-storage] C:\Users\Owner\Desktop\Poly Notes Year 1\Year 2\ADES\QuarantinedGit\jibaboom-quarantined\mobile\node_modules\@react-native-community\async-storage\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
-<<<<<<< HEAD
-=======
 MERGED from [:react-native-community_picker] C:\Users\Owner\Desktop\Poly Notes Year 1\Year 2\ADES\QuarantinedGit\jibaboom-quarantined\mobile\node_modules\@react-native-community\picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-community_picker] C:\Users\Owner\Desktop\Poly Notes Year 1\Year 2\ADES\QuarantinedGit\jibaboom-quarantined\mobile\node_modules\@react-native-community\picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
->>>>>>> RuiYang/branching
 MERGED from [com.facebook.react:react-native:0.62.2] C:\Users\Owner\.gradle\caches\transforms-2\files-2.1\5014ab3fb4de0d8cd2f9d95e27ccc3d2\jetified-react-native-0.62.2\AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.react:react-native:0.62.2] C:\Users\Owner\.gradle\caches\transforms-2\files-2.1\5014ab3fb4de0d8cd2f9d95e27ccc3d2\jetified-react-native-0.62.2\AndroidManifest.xml:7:5-9:41
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\Owner\.gradle\caches\transforms-2\files-2.1\a083b9190df6cd0b2eed1b8d83acb3d5\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44

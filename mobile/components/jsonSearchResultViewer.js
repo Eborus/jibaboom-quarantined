@@ -25,9 +25,9 @@ export default class JsonSearchDataViewer extends Component {
     }
     onSearchGetResultViewer() {
         if (this.state.choosenIndex == 0) {
-            this.props.onSearchGetResultViewer(`http://192.168.1.21:3000/basic/result?festivalId=${this.state.festivalid}`);
+            this.props.onSearchGetResultViewer(`http://192.168.1.131:3000/basic/result?festivalId=${this.state.festivalid}`);
         } else if (this.state.choosenIndex == 1){
-            this.props.onSearchGetResultViewer(`http://192.168.1.21:3000/advance/result?festivalId=${this.state.festivalid}`)
+            this.props.onSearchGetResultViewer(`http://192.168.1.131:3000/advance/result?festivalId=${this.state.festivalid}`)
         }   
     }
     render() {

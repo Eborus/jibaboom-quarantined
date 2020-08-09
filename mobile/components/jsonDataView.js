@@ -36,7 +36,7 @@ export default class DataView extends Component {
                 </View>
             )
         } else {
-            let result = this.state.dataSource.map((val, key) => {
+            let result = this.state.dataSource.result.map((val, key) => {
                 return <View key={key}>
                         <Text style={style.text}>Id: {val.id} FestivalId: {val.festival_id}</Text>
                         </View>

@@ -3,8 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/HelloWorld.iml" filepath="$PROJECT_DIR$/.idea/modules/HelloWorld.iml" group="HelloWorld" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-722381440/HelloWorld-react-native-community_async-storage.iml" filepath="$PROJECT_DIR$/.idea/modules/-722381440/HelloWorld-react-native-community_async-storage.iml" group="HelloWorld/react-native-community_async-storage" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="HelloWorld/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-722381440/react-native-community_async-storage.iml" filepath="$PROJECT_DIR$/.idea/modules/-722381440/react-native-community_async-storage.iml" group="HelloWorld/react-native-community_async-storage" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1624553144/react-native-community_picker.iml" filepath="$PROJECT_DIR$/.idea/modules/1624553144/react-native-community_picker.iml" group="HelloWorld/react-native-community_picker" />
     </modules>
   </component>
 </project>

@@ -69,7 +69,7 @@ app.get('/performance/data', function(req, res, next) {
     if(error) {
       return next(error);
     }
-    res.json(result)
+    return res.json({result: result});
   })
 });
 

@@ -5,6 +5,7 @@
     </ANNOTATIONS>
     <CLASSES>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3faa8d82b031a7be666886811b19017d/jetified-fresco-2.0.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3faa8d82b031a7be666886811b19017d/jetified-fresco-2.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3faa8d82b031a7be666886811b19017d/jetified-fresco-2.0.0/res" />
@@ -12,6 +13,11 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/83ef104dfb430f397d92e4759e916162/fresco-2.0.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/83ef104dfb430f397d92e4759e916162/fresco-2.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/83ef104dfb430f397d92e4759e916162/fresco-2.0.0/res" />
+>>>>>>> RuiYang/branching
+=======
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3faa8d82b031a7be666886811b19017d/jetified-fresco-2.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3faa8d82b031a7be666886811b19017d/jetified-fresco-2.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3faa8d82b031a7be666886811b19017d/jetified-fresco-2.0.0/res" />
 >>>>>>> RuiYang/branching
     </CLASSES>
     <JAVADOC>

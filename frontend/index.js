@@ -49,7 +49,7 @@ const dataPaginationFunction = {
 //Filtering data and generating table
 function populateDataTable(data) {
     console.log(data);
-    const dataTableHtml = data.map(({ id, performance_id, festival_id, performance, starttime, endtime, popularity }) => `
+    const dataTableHtml = data.result.map(({ id, performance_id, festival_id, performance, starttime, endtime, popularity }) => `
             <tr>
                 <th scope="row">${id}</th>
                 <td>${performance_id}</td>
@@ -85,8 +85,8 @@ function refreshDataTable() {
     })
     getTotalEntries(function (error, entries) {
         if (error) return alert(`Error: Unable to get the total number of entries, Code: 500`);
-        console.log("Total number of entries returned is " + entries.length)
-        defaults['maxEntries'] = entries.length;
+        console.log("Total number of entries returned is " + entries.result.length)
+        defaults['maxEntries'] = entries.result.length;
         displayEntriesText(defaults['maxEntries']);
     })
 }

@@ -5,6 +5,7 @@
     </ANNOTATIONS>
     <CLASSES>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e81d34d0d5260219fbdabd3419b30189/jetified-fbcore-2.0.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e81d34d0d5260219fbdabd3419b30189/jetified-fbcore-2.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e81d34d0d5260219fbdabd3419b30189/jetified-fbcore-2.0.0/res" />
@@ -12,6 +13,11 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/72a69f11cc341bd59ee4ec49b8dc9afc/jetified-fbcore-2.0.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/72a69f11cc341bd59ee4ec49b8dc9afc/jetified-fbcore-2.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/72a69f11cc341bd59ee4ec49b8dc9afc/jetified-fbcore-2.0.0/res" />
+>>>>>>> RuiYang/branching
+=======
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e81d34d0d5260219fbdabd3419b30189/jetified-fbcore-2.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e81d34d0d5260219fbdabd3419b30189/jetified-fbcore-2.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e81d34d0d5260219fbdabd3419b30189/jetified-fbcore-2.0.0/res" />
 >>>>>>> RuiYang/branching
     </CLASSES>
     <JAVADOC>

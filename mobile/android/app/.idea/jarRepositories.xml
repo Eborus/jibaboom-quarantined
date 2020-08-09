@@ -60,6 +60,7 @@
       <option name="url" value="https://dl.google.com/dl/android/maven2/" />
     </remote-repository>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <remote-repository>
       <option name="id" value="maven2" />
       <option name="name" value="maven2" />
@@ -71,6 +72,13 @@
       <option name="url" value="file:/$PROJECT_DIR$/../../node_modules/react-native/android/" />
     </remote-repository>
 =======
+>>>>>>> RuiYang/branching
+=======
+    <remote-repository>
+      <option name="id" value="MavenRepo" />
+      <option name="name" value="MavenRepo" />
+      <option name="url" value="https://repo.maven.apache.org/maven2/" />
+    </remote-repository>
 >>>>>>> RuiYang/branching
   </component>
 </project>

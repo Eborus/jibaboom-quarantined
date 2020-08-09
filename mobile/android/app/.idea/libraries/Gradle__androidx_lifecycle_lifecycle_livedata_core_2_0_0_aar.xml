@@ -2,6 +2,7 @@
   <library name="Gradle: androidx.lifecycle:lifecycle-livedata-core:2.0.0@aar">
     <CLASSES>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7282e00d74c6a6acf53f4bfd68421266/lifecycle-livedata-core-2.0.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7282e00d74c6a6acf53f4bfd68421266/lifecycle-livedata-core-2.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7282e00d74c6a6acf53f4bfd68421266/lifecycle-livedata-core-2.0.0/res" />
@@ -9,6 +10,11 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ae802a55e74c19280a922e6de05f1e6e/lifecycle-livedata-core-2.0.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ae802a55e74c19280a922e6de05f1e6e/lifecycle-livedata-core-2.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ae802a55e74c19280a922e6de05f1e6e/lifecycle-livedata-core-2.0.0/res" />
+>>>>>>> RuiYang/branching
+=======
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7282e00d74c6a6acf53f4bfd68421266/lifecycle-livedata-core-2.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7282e00d74c6a6acf53f4bfd68421266/lifecycle-livedata-core-2.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7282e00d74c6a6acf53f4bfd68421266/lifecycle-livedata-core-2.0.0/res" />
 >>>>>>> RuiYang/branching
     </CLASSES>
     <JAVADOC />

@@ -2,6 +2,7 @@
   <library name="Gradle: androidx.appcompat:appcompat-resources:1.1.0@aar">
     <CLASSES>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/23f12b0a995277db82a9d4b860245889/jetified-appcompat-resources-1.1.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/23f12b0a995277db82a9d4b860245889/jetified-appcompat-resources-1.1.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/23f12b0a995277db82a9d4b860245889/jetified-appcompat-resources-1.1.0/res" />
@@ -9,6 +10,11 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3eb43dcc83336306d77ef63b3402a327/appcompat-resources-1.1.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3eb43dcc83336306d77ef63b3402a327/appcompat-resources-1.1.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3eb43dcc83336306d77ef63b3402a327/appcompat-resources-1.1.0/res" />
+>>>>>>> RuiYang/branching
+=======
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/23f12b0a995277db82a9d4b860245889/jetified-appcompat-resources-1.1.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/23f12b0a995277db82a9d4b860245889/jetified-appcompat-resources-1.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/23f12b0a995277db82a9d4b860245889/jetified-appcompat-resources-1.1.0/res" />
 >>>>>>> RuiYang/branching
     </CLASSES>
     <JAVADOC />

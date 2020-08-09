@@ -5,6 +5,7 @@
     </ANNOTATIONS>
     <CLASSES>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c41cde47205e3865681326821ed9e47f/jetified-imagepipeline-2.0.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c41cde47205e3865681326821ed9e47f/jetified-imagepipeline-2.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c41cde47205e3865681326821ed9e47f/jetified-imagepipeline-2.0.0/res" />
@@ -12,6 +13,11 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c3b7b12f448628b281d0d62b884cad68/imagepipeline-2.0.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c3b7b12f448628b281d0d62b884cad68/imagepipeline-2.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c3b7b12f448628b281d0d62b884cad68/imagepipeline-2.0.0/res" />
+>>>>>>> RuiYang/branching
+=======
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c41cde47205e3865681326821ed9e47f/jetified-imagepipeline-2.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c41cde47205e3865681326821ed9e47f/jetified-imagepipeline-2.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c41cde47205e3865681326821ed9e47f/jetified-imagepipeline-2.0.0/res" />
 >>>>>>> RuiYang/branching
     </CLASSES>
     <JAVADOC>

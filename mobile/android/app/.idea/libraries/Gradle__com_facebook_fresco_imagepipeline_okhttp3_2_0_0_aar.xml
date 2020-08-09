@@ -2,6 +2,7 @@
   <library name="Gradle: com.facebook.fresco:imagepipeline-okhttp3:2.0.0@aar">
     <CLASSES>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3c7ccaca5815aaf22dc794aa2404e3a9/jetified-imagepipeline-okhttp3-2.0.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3c7ccaca5815aaf22dc794aa2404e3a9/jetified-imagepipeline-okhttp3-2.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3c7ccaca5815aaf22dc794aa2404e3a9/jetified-imagepipeline-okhttp3-2.0.0/res" />
@@ -9,6 +10,11 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8547c58d8a189afcab5540191afe7320/imagepipeline-okhttp3-2.0.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8547c58d8a189afcab5540191afe7320/imagepipeline-okhttp3-2.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8547c58d8a189afcab5540191afe7320/imagepipeline-okhttp3-2.0.0/res" />
+>>>>>>> RuiYang/branching
+=======
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3c7ccaca5815aaf22dc794aa2404e3a9/jetified-imagepipeline-okhttp3-2.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3c7ccaca5815aaf22dc794aa2404e3a9/jetified-imagepipeline-okhttp3-2.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3c7ccaca5815aaf22dc794aa2404e3a9/jetified-imagepipeline-okhttp3-2.0.0/res" />
 >>>>>>> RuiYang/branching
     </CLASSES>
     <JAVADOC>

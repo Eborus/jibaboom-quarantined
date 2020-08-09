@@ -4,7 +4,11 @@
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
         <option name="GRADLE_PROJECT_PATH" value=":app" />
+<<<<<<< HEAD
         <option name="LAST_SUCCESSFUL_SYNC_AGP_VERSION" />
+=======
+        <option name="LAST_SUCCESSFUL_SYNC_AGP_VERSION" value="4.0.1" />
+>>>>>>> RuiYang/branching
         <option name="LAST_KNOWN_AGP_VERSION" value="4.0.1" />
       </configuration>
     </facet>
@@ -138,6 +142,10 @@
     <orderEntry type="library" name="Gradle: com.facebook.fresco:nativeimagefilters:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.facebook.fresco:nativeimagetranscoder:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: org.webkit:android-jsc:r245459@aar" level="project" />
+<<<<<<< HEAD
+=======
+    <orderEntry type="module" module-name="react-native-community_picker" />
+>>>>>>> RuiYang/branching
     <orderEntry type="module" module-name="react-native-community_async-storage" />
   </component>
 </module>

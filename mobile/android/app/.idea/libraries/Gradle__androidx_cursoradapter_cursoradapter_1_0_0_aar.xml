@@ -2,6 +2,7 @@
   <library name="Gradle: androidx.cursoradapter:cursoradapter:1.0.0@aar">
     <CLASSES>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7c0677be8011741026309ef690a9f4db/cursoradapter-1.0.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7c0677be8011741026309ef690a9f4db/cursoradapter-1.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7c0677be8011741026309ef690a9f4db/cursoradapter-1.0.0/res" />
@@ -9,6 +10,11 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a20a73fc01b18d3fde5e258f4cd5ad79/cursoradapter-1.0.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a20a73fc01b18d3fde5e258f4cd5ad79/cursoradapter-1.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a20a73fc01b18d3fde5e258f4cd5ad79/cursoradapter-1.0.0/res" />
+>>>>>>> RuiYang/branching
+=======
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7c0677be8011741026309ef690a9f4db/cursoradapter-1.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7c0677be8011741026309ef690a9f4db/cursoradapter-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7c0677be8011741026309ef690a9f4db/cursoradapter-1.0.0/res" />
 >>>>>>> RuiYang/branching
     </CLASSES>
     <JAVADOC />

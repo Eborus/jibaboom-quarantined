@@ -2,6 +2,7 @@
   <library name="Gradle: androidx.legacy:legacy-support-core-ui:1.0.0@aar">
     <CLASSES>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f5ec57ec49d0a3e9add695de66a9078c/legacy-support-core-ui-1.0.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f5ec57ec49d0a3e9add695de66a9078c/legacy-support-core-ui-1.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f5ec57ec49d0a3e9add695de66a9078c/legacy-support-core-ui-1.0.0/res" />
@@ -9,6 +10,11 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a0cc55542e7f80901507e4e652970d1e/legacy-support-core-ui-1.0.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a0cc55542e7f80901507e4e652970d1e/legacy-support-core-ui-1.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a0cc55542e7f80901507e4e652970d1e/legacy-support-core-ui-1.0.0/res" />
+>>>>>>> RuiYang/branching
+=======
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f5ec57ec49d0a3e9add695de66a9078c/legacy-support-core-ui-1.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f5ec57ec49d0a3e9add695de66a9078c/legacy-support-core-ui-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f5ec57ec49d0a3e9add695de66a9078c/legacy-support-core-ui-1.0.0/res" />
 >>>>>>> RuiYang/branching
     </CLASSES>
     <JAVADOC />

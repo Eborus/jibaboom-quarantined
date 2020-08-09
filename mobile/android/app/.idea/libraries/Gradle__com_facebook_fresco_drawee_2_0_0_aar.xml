@@ -2,6 +2,7 @@
   <library name="Gradle: com.facebook.fresco:drawee:2.0.0@aar">
     <CLASSES>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/03900285f8dc96706b7719550784439b/jetified-drawee-2.0.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/03900285f8dc96706b7719550784439b/jetified-drawee-2.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/03900285f8dc96706b7719550784439b/jetified-drawee-2.0.0/res" />
@@ -9,6 +10,11 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ee0a0f1df6ec82b39c6bd94672681bab/drawee-2.0.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ee0a0f1df6ec82b39c6bd94672681bab/drawee-2.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ee0a0f1df6ec82b39c6bd94672681bab/drawee-2.0.0/res" />
+>>>>>>> RuiYang/branching
+=======
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/03900285f8dc96706b7719550784439b/jetified-drawee-2.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/03900285f8dc96706b7719550784439b/jetified-drawee-2.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/03900285f8dc96706b7719550784439b/jetified-drawee-2.0.0/res" />
 >>>>>>> RuiYang/branching
     </CLASSES>
     <JAVADOC>

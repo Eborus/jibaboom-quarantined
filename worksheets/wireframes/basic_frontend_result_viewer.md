@@ -6,7 +6,7 @@ This document should help you explain how your user interfaces are designed. You
 
 > This is just an example, please find your own wireframe.
 
-![Wireframe](assets/wireframe-FrontEnd-ResultViewer.png)
+![Wireframe](assets/Wireframe-BasicResultViewer.png)
 
 ## Justifications
 

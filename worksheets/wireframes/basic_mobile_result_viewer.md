@@ -1,7 +1,8 @@
 # Wireframe & Justification
 
 ## Wireframe
-[Wireframe](assets/MobileExample-ResultViewer.png)
+[Wireframe](assets/WireFrame-BasicMobileResultViewer.png)
+
 ## Justifications
 
 ### Justification 1

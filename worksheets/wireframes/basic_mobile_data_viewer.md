@@ -2,8 +2,7 @@
 
 ## Wireframe
 
-![Wireframe1](assets/WireframeMobile1.png)
-![Wireframe2](assets/WireframeMobile2.png)
+![Wireframe1](assets/WireFrame-BasicMobileDataViewer.png)
 
 ## Justifications
 

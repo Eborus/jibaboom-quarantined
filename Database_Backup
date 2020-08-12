@@ -1,4 +1,4 @@
---- Database ---
+-- Database --
 //Database connection stuff, do not touch unless you wanna switch between the backup and the main database, in which you'd only have to change connectionString. Just copy
 //and paste the url
 
@@ -14,37 +14,40 @@ function connect() {
 }
 
 //Run npm run resetTable to reset the database. Aka, drops the table and creates a new table with empty values.
-function resetTable() {
+function resetTable(callback) {
     const client = connect();
     const query = `
         DROP TABLE IF EXISTS musicFestival;
         CREATE TABLE musicFestival (
             id SERIAL PRIMARY KEY,
-            performance_id BIGINT UNIQUE NOT NULL,
+            data_type VARCHAR(20) NOT NULL,
+            performance_id BIGINT NOT NULL,
             festival_id BIGINT NOT NULL,
             performance VARCHAR(40),
             startTime CHAR(4) NOT NULL,
             endTime CHAR(4) NOT NULL,
-            popularity INTEGER
+            popularity INTEGER,
+            UNIQUE (data_type, performance_id)
         );
     `;
     client.query(query, (err, res) => {
-        console.log(err, res)
-        client.end()
+        console.log(err, res);
+        client.end();
+        callback(err, res);
     })
 }
 
 //Since there is no frontend option to insert statements. Use test.http for the insert function
-function insertPerformanceData(musicFestival, callback) {
+function insertPerformanceData(musicFestival, dataType, callback) {
     let i = 1;
-    const queryStructure = musicFestival.map(music => `($${i++}, $${i++}, $${i++}, $${i++}, $${i++}, $${i++})`).join(',');
-    const values = musicFestival.reduce((reduced, music) => [...reduced, music.performanceId, music.festivalId, music.performance, music.startTime, music.endTime, music.popularity], []);
+    const queryStructure = musicFestival.map(music => `($${i++}, $${i++}, $${i++} ,$${i++}, $${i++}, $${i++}, $${i++})`).join(',');
+    const values = musicFestival.reduce((reduced, music) => [...reduced, dataType, music.performanceId, music.festivalId, music.performance, music.startTime, music.endTime, music.popularity], []);
     if (musicFestival.length == 0) {
         const err = "";
         const result = "";
         return callback(err, result);
     } else {
-        const query = `INSERT INTO musicFestival (performance_id, festival_id, performance, startTime, endTime, popularity) VALUES ${queryStructure};`;
+        const query = `INSERT INTO musicFestival (data_type, performance_id, festival_id, performance, startTime, endTime, popularity) VALUES ${queryStructure};`;
 
         const client = connect();
         client.query(query, values, (err, result) => {
@@ -55,11 +58,12 @@ function insertPerformanceData(musicFestival, callback) {
 }
 
 //Gets and generates the table again based on filtered search.
-function getPerformanceDetails(festivalId, startTime, endTime, page = 0, pageSize = 18, callback) { //Default should always be 18 rows.
+function getPerformanceDetails(dataType, festivalId, startTime, endTime, page = 0, pageSize = 18, callback) { //Default should always be 18 rows.
+    console.log("DataType = " + dataType);
     let whereClause;
     let i = 1;
     const values = [];
-    if (!festivalId && !startTime && !endTime) whereClause = ''; //If all inputs are empty, return an empty sql query
+    if (dataType == 0 && !festivalId && !startTime && !endTime) whereClause = ''; //If all inputs are empty, return an empty sql query
     else {
         whereClause = 'WHERE ';
         if (festivalId) {
@@ -74,6 +78,12 @@ function getPerformanceDetails(festivalId, startTime, endTime, page = 0, pageSiz
             whereClause += startTime ? ` AND endTime < $${i++}` : festivalId ? ` AND endTime < $${i++}` : `endTime < $${i++}`;
             values.push(endTime);
         }
+        if (dataType == 1) {
+            whereClause += endTime ? ` AND data_type = 'Basic'` : startTime ? ` AND data_type = 'Basic'` : festivalId ? ` AND data_type = 'Basic'` : `data_type = 'Basic'`;
+        }
+        if (dataType == 2) {
+            whereClause += endTime ? ` AND data_type = 'Advanced'` : startTime ? ` AND data_type = 'Advanced'` : festivalId ? ` AND data_type = 'Advanced'` : `data_type = 'Advanced'`;
+        }
     }
 
     let limitOffsetClause = `LIMIT $${i++} OFFSET $${i++}`; //@Rui Yang, you can choose to build the pagination upon this code structure. Or you can delete the 
@@ -82,25 +92,335 @@ function getPerformanceDetails(festivalId, startTime, endTime, page = 0, pageSiz
     const query = `SELECT * FROM musicFestival ${whereClause} ${limitOffsetClause}`;
 
     const client = connect();
-    client.query(query, values, function (err, { rows }) {
+    client.query(query, values, function (err, result) {
         client.end();
+        if (err) {
+            // result is null; thus, cannot access the "rows" key from result. i.e. result.rows will throw an error.
+            console.log(err);
+            return callback(err, result);
+        }
+        const {rows} = result;
         callback(err, rows);
     })
+}
+
+function getPerformancesForComputation(festival_id, callback) {
+    if(!festival_id) {
+        const error = {message: "Expected Error due to Missing Field", status: 400}
+        callback(error);
+        return;
+    }
+    const client = connect();
+    client.query(`SELECT * FROM musicFestival WHERE festival_id = $1`, [festival_id], (err, { rows }) => {
+        client.end();
+        callback(err, rows);
+    });
 }
 
 module.exports = {
     resetTable,
     insertPerformanceData,
-    getPerformanceDetails
+    getPerformanceDetails,
+    getPerformancesForComputation
 };
 
---- Index.js ---
-//Current Issues with the pagination
-//If the user increases the rows displayed per page and goes to the next page, max page size still remains the same. Meaning if it already displays all 18 data, the user can still
-//go to the next page up to two more times with each new page returning a blank table. You can also see the no. of entries increasing despite it being abnormal.
-//Planning to fix this by Sun evening, not to worry... I hope -Jason
+-- Backend -- 
+
+const e = require("express");
+
+function compute(data) {
+    try {
+        return { error: null, result: sortArrayOfPerformances(data) };
+    } catch (error) {
+        return { error, result: null };
+    }
+}
+
+function sortArrayOfPerformances(performances) {
+    if (performances.length == 0) {
+        return performances;
+    }
+    performances.sort((a, b) => a.endtime - b.endtime); // Sorts the array of performances on ascending end time
+    console.log(performances);
+
+    let selected = [];
+
+    let i = 0; //first selected performance, i -> marks previously selected performances
+
+    let firstSelectedPerformance = performances[i];
+
+    selected.push( firstSelectedPerformance );
+
+    let j = 1; //looping variable, j marks the currently selected performance
+
+    for(j = 1; j < performances.length; j++) {
+        if(performances[j].starttime >= performances[i].endtime) {
+            selected.push(performances[j]);
+            i = j;
+        }
+    }
+    return selected;
+}
+
+function computePopularity(data) {
+    try {
+        return { error: null, result: sortArrayOfPopularity(data) };
+    } catch (error) {
+        return { error, result: null };
+    }
+}
+
+// Find the latest performance (in sorted array) that doesn't 
+// conflict with the performance[i]. If there is no compatible performances, 
+// then it returns -1. Basically the for loop in sortArrayofPerformances function but this time it returns values based on the outcomes
+function latestNonConflict(pTest, n) {
+    for (let i = (n - 1); i >= 0; i--) {
+        if (pTest[i].endtime <= pTest[n].starttime) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+function sortArrayOfPopularity(performances) {
+performances.sort((a, b) => a.endtime - b.endtime);
+console.log(performances);
+
+    let n = performances.length;
+    console.log(n);
+    let maxPopularity = []; // Stores the max popularity
+    let popularityArray = []; // Stores the indexes of performances associated in getting max popularity
+    let resultArray = []; // Stores the arrays of performances associated in getting max popularity
+
+    // Initialise popularity array with references to the length of array of filtered performances
+    for (let i = 0; i < n; i++) {
+        popularityArray[i] = [];
+    }
+    console.log(popularityArray);
+
+    // Initialise the max popularity array by starting it off with the lowest popularity, inits the popularity array with the first performance
+    maxPopularity[0] = performances[0].popularity;
+    console.log("Max Popularity 1 = " + maxPopularity[0]);
+    popularityArray[0].push(0);
+    console.log(popularityArray);
+
+    // Iterates through the sorted array
+    for (let i = 1; i < n; i++) {
+        console.log("Iterating Index " + i);
+        let index = latestNonConflict(performances, i);
+        console.log("Returned value is: " + index);
+
+        let currentPopularity = performances[i].popularity;
+        console.log("Popularity is: " + currentPopularity + "\n");
+        if (index != -1) {
+            currentPopularity += maxPopularity[index];
+            console.log("Added to index of max popularity: " + maxPopularity[index] + "\n");
+        }
+
+        // if including the current performance leads to the maximum popularity so far
+        if (maxPopularity[i - 1] < currentPopularity) {
+            maxPopularity[i] = currentPopularity;
+            console.log("This is now the max");
+
+            if (index != -1) {
+                console.log("Element being replaced: [" + popularityArray[i] + "] at index " + i);
+                popularityArray[i] = [...popularityArray[index]];
+                console.log("New Value after set: " + popularityArray[i]);
+                console.log("New popularity array after set: ");
+                console.log(popularityArray);
+            }
+            console.log("Index for popularity array: " + i);
+            console.log("Include");
+            console.log("Old Value: " + popularityArray[i]);
+            popularityArray[i].push(i);
+            console.log("New Value: " + popularityArray[i]);
+            console.log("New popularity array: ");
+            console.log(popularityArray);
+        }
+        // excluding the current performance leads to the maximum popularity so far
+        else {
+            console.log("Index for popularity array: " + i);
+            console.log("Exclude");
+            console.log("Old Value: " + popularityArray[i]);
+            popularityArray[i] = popularityArray[i - 1];
+            console.log("New Value: " + popularityArray[i]);
+            console.log("New popularity array: ");
+            console.log(popularityArray);
+            maxPopularity[i] = Math.max(currentPopularity, parseInt(maxPopularity[i - 1]));
+        }
+    }
+    console.log("\nEntire data: " + maxPopularity);
+    console.log("Max popularity is " + maxPopularity[n - 1]);
+
+    // Prints out the performances used in getting the max popularity
+    popularityArray[n - 1].forEach(function (index) {
+        resultArray.push(performances[index]);
+    })
+    return resultArray;
+}
+
+module.exports = {
+    compute,
+    computePopularity
+}
+
+-- App Controller --
+
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+var cors = require('cors');
+
+const database = require('./database');
+const backend = require('./backend');
+
+var app = express();
+
+app.use(cors());
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) => {
+  return res.json({
+  message: 'Welcome to JiBaBoom - Quarantined :)',
+  availableEndpoints: [
+  'POST /basic/insert { "data": [ {key1: value1, key2: value2, ...} ] }',
+  'POST /advance/insert { "data": [ {key1: value1, key2: value2, ...} ] }',
+  'GET /basic/result?para1=value1&para2=value2',
+  'GET /advance/result?para1=value1&para2=value2',
+  ],
+  });
+ });
+
+app.get('/reset', function (req, res) {
+  database.resetTable(function (err, result) {
+      if (err) {
+        // return res.json({ error: 'Failed to reset table' });
+        return next({ message: "Failed to reset table!", status: 400});
+      } else {
+        return res.json({ result: 'Success' });
+      }
+    });
+ });
+
+app.post('/basic/insert', function (req, res, next) {
+  const { data } = req.body;
+  database.insertPerformanceData(data, 'Basic', (error, result) => {
+    if(error) {
+      return next(error);
+    }
+    console.log(result);
+    res.json({result: "Success"});
+  });
+});
+
+app.post('/advance/insert', function (req, res, next) {
+  const { data } = req.body;
+  database.insertPerformanceData(data, 'Advanced', (error, result) => {
+    if(error) {
+      return next(error);
+    }
+    console.log(result);
+    res.json({result: "Success"});
+  });
+});
+
+app.get('/performance/data', function(req, res, next) {
+  console.log(req.query)
+  const { dataType, festivalId, startTime, endTime, page, pageSize} = req.query;
+  database.getPerformanceDetails(dataType, festivalId, startTime, endTime, page, pageSize, (error, result) =>{
+    if(error) {
+      return next(error);
+    }
+    return res.json({result: result});
+  })
+});
+
+app.get('/basic/result', function(req, res, next) {
+  const { festivalId } = req.query;
+  database.getPerformancesForComputation(festivalId, (error, result) => {
+    if(error) {
+      return next(error);
+    }
+    const { error: computationError, result: computationResult } = backend.compute(result)
+    if (computationError) return next(computationError);
+    for (let i = 0; i < computationResult.length; i++) {
+      computationResult[i]['performanceId'] = parseInt(computationResult[i].performance_id);
+      computationResult[i]['startTime'] = computationResult[i].starttime;
+      computationResult[i]['endTime'] = computationResult[i].endtime;
+      // delete computationResult[i]['id'];
+      // delete computationResult[i]['data_type'];
+      // delete computationResult[i]['performance_id'];
+      // delete computationResult[i]['festival_id'];
+      // delete computationResult[i]['performance'];
+      // delete computationResult[i]['starttime'];
+      // delete computationResult[i]['endtime'];
+      // delete computationResult[i]['popularity'];
+    }
+    return res.json({result: computationResult});
+  })
+})
+
+app.get('/advance/result', function(req, res, next) {
+  const { festivalId } = req.query;
+  database.getPerformancesForComputation(festivalId, (error, result) => {
+    if(error) {
+      return next(error);
+    }
+    const { error: computationError, result: computationResult } = backend.computePopularity(result)
+    if (computationError) return next(computationError);
+    for (let i = 0; i < computationResult.length; i++) {
+      computationResult[i]['performanceId'] = parseInt(computationResult[i].performance_id);
+      computationResult[i]['startTime'] = computationResult[i].starttime;
+      computationResult[i]['endTime'] = computationResult[i].endtime;
+      // delete computationResult[i]['id'];
+      // delete computationResult[i]['data_type'];
+      // delete computationResult[i]['performance_id'];
+      // delete computationResult[i]['festival_id'];
+      // delete computationResult[i]['performance'];
+      // delete computationResult[i]['starttime'];
+      // delete computationResult[i]['endtime'];
+      // delete computationResult[i]['popularity'];
+    }
+    return res.json({result: computationResult})
+  })
+})
+
+// // Test if api works
+// app.get('/', (req, res, next) => {
+//   next({ message: "error!", status: 500, code: 12345});
+// });
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.json({
+    error: err.message,
+    code: err.code || 500,
+  });
+});
+
+module.exports = app;
+
+-- Frontend Backend --
 
 const defaults = {
+    dataType: 0,
     festivalId: null,
     startTime: null,
     endTime: null,
@@ -110,6 +430,7 @@ const defaults = {
 };
 
 const basicDataQuery = {
+    dataType: 0,
     festivalId: null,
     startTime: null,
     endTime: null,
@@ -118,9 +439,20 @@ const basicDataQuery = {
     maxPages: 3,
 };
 
+const basicResultQuery = {
+    festivalId: null,
+};
+
+// Init variables
+const basicDataUrl = 'https://jibaboom-2b21-quarantined.herokuapp.com/performance/data';
+const basicResultUrl = 'https://jibaboom-2b21-quarantined.herokuapp.com/basic/result';
+const advanceResultUrl = 'https://jibaboom-2b21-quarantined.herokuapp.com/advance/result';
+var resultType = 0;
+
+// Pagination Handling
 const dataPaginationFunction = {
     changePage: function(delta) {
-        basicDataQuery['maxPages'] = Math.floor(defaults['maxEntries'] / basicDataQuery['pageSize']);
+        basicDataQuery['maxPages'] = Math.floor((defaults['maxEntries'] - 1) / basicDataQuery['pageSize']);
         basicDataQuery['page'] += parseInt(delta);
         if(basicDataQuery['page'] >= basicDataQuery['maxPages']) {
             basicDataQuery['page'] = basicDataQuery['maxPages'];
@@ -130,17 +462,15 @@ const dataPaginationFunction = {
     },
     changePageSize: function (newPageSize) {
         basicDataQuery['pageSize'] = newPageSize
-        basicDataQuery['maxPages'] = Math.floor(defaults['maxEntries'] / newPageSize);
+        basicDataQuery['maxPages'] = Math.floor((defaults['maxEntries'] - 1) / newPageSize);
         basicDataQuery['page'] = 0;
     }
 };
 
-const basicDataUrl = 'http://localhost:3000/performance/data';
-
 //Filtering data and generating table
 function populateDataTable(data) {
     console.log(data);
-    const dataTableHtml = data.map(({ id, performance_id, festival_id, performance, starttime, endtime, popularity }) => `
+    const dataTableHtml = data.result.map(({ id, performance_id, festival_id, performance, starttime, endtime, popularity }) => `
             <tr>
                 <th scope="row">${id}</th>
                 <td>${performance_id}</td>
@@ -161,6 +491,7 @@ function getDataFromBackend(callback) {
 }
 
 function getTotalEntries(callback) {
+    defaults['dataType'] = basicDataQuery['dataType'];
     defaults['festivalId'] = basicDataQuery['festivalId'];
     defaults['startTime'] = basicDataQuery['startTime'];
     defaults['endTime'] = basicDataQuery['endTime'];
@@ -170,13 +501,13 @@ function getTotalEntries(callback) {
 
 function refreshDataTable() {
     getDataFromBackend(function (error, data) {
-        if (error) return alert(error);
+        if (error) return alert(`Error: Unable to retrieve data from backend, Code: 503`);
         populateDataTable(data);
     })
     getTotalEntries(function (error, entries) {
-        if (error) return alert(error);
-        console.log("Total number of entries returned is " + entries.length)
-        defaults['maxEntries'] = entries.length;
+        if (error) return alert(`Error: Unable to get the total number of entries, Code: 500`);
+        console.log("Total number of entries returned is " + entries.result.length)
+        defaults['maxEntries'] = entries.result.length;
         displayEntriesText(defaults['maxEntries']);
     })
 }
@@ -185,6 +516,7 @@ function filterData(event) {
     $('#basic-data-filter-form input').not(':input[type=submit]').each((index, input) => {
         basicDataQuery[$(input).attr('key')] = $(input).val();
     });
+    basicDataQuery['page'] = 0;
     refreshDataTable();
     return false;
 }
@@ -197,7 +529,9 @@ $(document).ready(function () {
     registerDataFilterForm();
     refreshDataTable();
     registerBasicDataPaginationForm();
+    registerDTypeSelection();
     displayEntriesText();
+    registerBasicResultInput()
 })
 
 
@@ -234,68 +568,75 @@ function displayEntriesText(totalRows) {
     displayEntryText.innerHTML = "Showing " + minIndex + " to " + maxIndex + " of " + maxTableRows + " entries";
 }
 
---- Api ---
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require('cors');
+//Determine data type
 
-const database = require('./database');
+function registerDTypeSelection() {
+    $('#dataTypeSelection').change(changeDataType);
+}
 
-var app = express();
+function changeDataType(event) {
+    const dataValue = document.getElementById("dataTypeSelection").value;
+    basicDataQuery['dataType'] = dataValue;
+    basicDataQuery['page'] = 0;
+    console.log(basicDataQuery['dataType']);
+    refreshDataTable();
+}
 
-app.use(cors());
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// Result Viewer Part
+function registerBasicResultInput() {
+    $('#basic-result-input-form').submit(computeResults);
+    $('#inputSelection').change(changeResultType);
+}
 
-app.post('/basic/insert', function (req, res, next) {
-  const { data } = req.body;
-  database.insertPerformanceData(data, (error, result) => {
-    if(error) {
-      return next(error);
+function changeResultType(event) {
+    resultType = document.getElementById("inputSelection").value;
+    console.log("ResultType is " + resultType);
+    if(document.getElementById("inputFestivalId").value != '') {
+        computeResults();
     }
-    console.log(result);
-    res.json({result: "Success"});
-  });
-});
+}
 
-app.get('/performance/data', function(req, res, next) {
-  const { festivalId, startTime, endTime, page, pageSize} = req.query;
-  database.getPerformanceDetails(festivalId, startTime, endTime, page, pageSize, (error, result) =>{
-    if(error) {
-      return next(error);
+function computeResults() {
+    $('#basic-result-input-form input').not(':input[type=submit]').each((index, input) => {
+        basicResultQuery[$(input).attr('key')] = $(input).val();
+    });
+    refreshResultTable();
+    return false;
+}
+
+function refreshResultTable() {
+    getResultFromBackend(function (error, data) {
+        if (error) return alert(`Error: Unable to retrieve data from backend, Code: 503`);
+        populateResultTable(data);
+    })
+}
+
+function getResultFromBackend(callback) {
+    if(resultType == 0) { // Basic Result Query
+    $.get(basicResultUrl, basicResultQuery).done((result) => callback(null, result))
+        .fail((message) => callback(message, null));
+    } else if (resultType == 1) { // Advanced Result Query
+        $.get(advanceResultUrl, basicResultQuery).done((result) => callback(null, result))
+        .fail((message) => callback(message, null));
+    } else { // Fallback to most performances if an unexpected error occurs
+        console.log("A bug has been detected! ResultType value was " + resultType);
+        resultType = 0;
+        $.get(basicResultUrl, basicResultQuery).done((result) => callback(null, result))
+        .fail((message) => callback(message, null));
     }
-    res.json(result)
-  })
-});
+}
 
-// Test if api works
-app.get('/', (req, res, next) => {
-  res.json({ hello: 'world' });
-});
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.json({
-    error: err.message,
-    code: err.status || 500,
-  });
-});
-
-module.exports = app;
+function populateResultTable(data) {
+    const dataTableHtml = data.result.map(({ id, performance_id, festival_id, starttime, endtime, popularity }) => `
+            <tr>
+                <th scope="row">${id}</th>
+                <td>${performance_id}</td>
+                <td>${festival_id}</td>
+                <td>${starttime}</td>
+                <td>${endtime}</td>
+                <td>${popularity}</td>
+            </tr>
+    `,
+    );
+    $('#result-tbody').html(dataTableHtml);
+}

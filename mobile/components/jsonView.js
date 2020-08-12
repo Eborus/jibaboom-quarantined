@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import { View, Button, } from 'react-native';
 
 import JsonRequestorView from './jsonRequesterView';
-import JsonPrinterView from './jsonPrinterView';
+import JsonPrinterDataView from './jsonPrinterDataView';
+import JsonPrinterResultView from './jsonPrinterResultView';
+import JsonPrinterCacheView from './jsonPrinterCacheView';
 import JsonDataView from './jsonDataView';
 import cacheManager from '../managers/cacheManager';
 import JsonSearchDataViewer from './jsonSearchDataViewer'
@@ -10,9 +12,9 @@ import JsonSearchResultViewer from './jsonSearchResultViewer'
 
 export default class JsonView extends Component {
     state = {
-        ddata: {},
-        rdata: {},
-        cacheData: {},
+        ddata: {result: []},
+        rdata: {result: []},
+        cacheData: {result: []},
     }
 
     constructor(props) {
@@ -92,24 +94,7 @@ export default class JsonView extends Component {
             })
             .then(ddata => this.setState({ ddata }))
             .catch((error) => {
-                console.log(error)
-                const result = { error: error.message }
-                cacheManager
-                    .get(requestUrl)
-                    .then((cacheJson) => {
-                        if (!cacheJson) {
-                            result.cacheMessage = 'URL not cached '
-                            return this.setState({ ddata: result })
-                        }
-                        result.json = cacheJson;
-                        result.cached = true;
-                        this.setState({ ddata: result })
-                    }).catch((cacheError) => {
-                        this.setState({
-                            ddata: result,
-                            cacheData: { error: cacheError.message }
-                        })
-                    })
+                this.setState({ddata: { error: error.message }});
             })
     }
 
@@ -134,9 +119,7 @@ export default class JsonView extends Component {
                             result.cacheMessage = 'URL not cached '
                             return this.setState({ rdata: result })
                         }
-                        result.json = cacheJson;
-                        result.cached = true;
-                        this.setState({ data: result })
+                        this.setState({ rdata: cacheJson })
                     }).catch((cacheError) => {
                         this.setState({
                             rdata: result,
@@ -151,12 +134,12 @@ export default class JsonView extends Component {
             <View>
                 {/* ResultViewer */}
                 <JsonSearchResultViewer onSearchGetResultViewer={this.onSearchGetResultViewer} />
-                <JsonPrinterView title='Result Viewer' json={this.state.rdata} />
+                <JsonPrinterResultView title='Result Viewer' json={this.state.rdata} />
                 {/* DataViewer */}
                 <JsonSearchDataViewer onSearchGet={this.onSearchGetDataViewer} />
                 <JsonRequestorView onGetPress={this.onGetPress} />
-                <JsonPrinterView title='Data Viewer' json={this.state.ddata} />
-                <JsonPrinterView title='Cache' json={this.state.cacheData} />
+                <JsonPrinterDataView title='Data Viewer' json={this.state.ddata} />
+                <JsonPrinterCacheView title='Cache' json={this.state.cacheData} />
                 <Button title="Clear Cache" onPress={this.onClearCache} />
                 <JsonDataView />
             </View>

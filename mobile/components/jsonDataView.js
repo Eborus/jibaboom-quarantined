@@ -37,13 +37,24 @@ export default class DataView extends Component {
             )
         } else {
             let result = this.state.dataSource.result.map((val, key) => {
-                return <View key={key}>
-                        <Text style={style.text}>Id: {val.id} FestivalId: {val.festival_id}</Text>
+                return <View style={style.innerContainer} key={key}>
+                        <Text style={style.text}>{val.id}</Text>
+                        <Text style={style.text}>{val.performance_id}</Text>
+                        <Text style={style.text}>{val.starttime}</Text>
+                        <Text style={style.text}>{val.endtime}</Text>
+                        <Text style={style.text}>{val.popularity}</Text>
                         </View>
             });
 
         return(
             <View style={style.container}>
+                <View style={style.innerContainer}>
+                <Text style={style.text1}>Id</Text>
+                <Text style={style.text1}>Performance ID</Text>
+                <Text style={style.text1}>Start Time</Text>
+                <Text style={style.text1}>End Time</Text>
+                <Text style={style.text1}>Popularity</Text>
+                </View>
                 {result}
             </View>
         );
@@ -55,11 +66,20 @@ export default class DataView extends Component {
 const style = StyleSheet.create({
     text: {
         color: '#999999',
+        padding: 20,
+    },
+    text1: {
+        color: '#999999',
+        padding: 5,
     },
     container: {
         flex: 1,
-        marginLeft: 10,
         justifyContent: "center",
         marginBottom: 100,
-    }
+    },
+    innerContainer: {
+        justifyContent: 'center',
+        flexDirection: 'row',
+        flex: 1,
+    },
 });

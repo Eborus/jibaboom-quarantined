@@ -1,18 +1,19 @@
 import React, { Component } from "react"
 import { View, Text, StyleSheet } from 'react-native';
 
-export default class JsonPrinterView extends Component {
+export default class jsonPrinterCacheView extends Component {
     render() {
-        const array = JSON.stringify(this.props.json, null, 4).split('\n');
+        const array = this.props.json;
+        console.log(this.props.json);
         let lineNumber = 1;
         return (
             <View>
                 <Text style={style.title} >{this.props.title}</Text>
                 <View>
-                    {array.map(str => (
+                    {array.result.map((val, key) => (
                         <View style={style.row} key={lineNumber}>
                             <Text style={style.lineNumber}>{lineNumber++}</Text>
-                            <Text style={style.lineContent}>{str}</Text>
+                            <Text style={style.lineContent}>{val.festival_id}</Text>
                         </View>
                     ))}
                 </View>

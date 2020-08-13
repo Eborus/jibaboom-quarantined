@@ -2,22 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1357430047/HelloWorld.iml" filepath="$PROJECT_DIR$/.idea/modules/1357430047/HelloWorld.iml" group="HelloWorld" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/app.iml" filepath="$PROJECT_DIR$/.idea/app.iml" group="HelloWorld/app" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/2084508359/react-native-community_async-storage.iml" filepath="$PROJECT_DIR$/.idea/modules/2084508359/react-native-community_async-storage.iml" group="HelloWorld/react-native-community_async-storage" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/../HelloWorld.iml" filepath="$PROJECT_DIR$/../HelloWorld.iml" group="HelloWorld" />
-      <module fileurl="file://$PROJECT_DIR$/app.iml" filepath="$PROJECT_DIR$/app.iml" group="HelloWorld/app" />
-      <module fileurl="file://$PROJECT_DIR$/../../node_modules/@react-native-community/async-storage/android/react-native-community_async-storage.iml" filepath="$PROJECT_DIR$/../../node_modules/@react-native-community/async-storage/android/react-native-community_async-storage.iml" group="HelloWorld/react-native-community_async-storage" />
->>>>>>> RuiYang/branching
-=======
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1357430047/HelloWorld.iml" filepath="$PROJECT_DIR$/.idea/modules/1357430047/HelloWorld.iml" group="HelloWorld" />
       <module fileurl="file://$PROJECT_DIR$/.idea/app.iml" filepath="$PROJECT_DIR$/.idea/app.iml" group="HelloWorld/app" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/2084508359/react-native-community_async-storage.iml" filepath="$PROJECT_DIR$/.idea/modules/2084508359/react-native-community_async-storage.iml" group="HelloWorld/react-native-community_async-storage" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1121170607/react-native-community_picker.iml" filepath="$PROJECT_DIR$/.idea/modules/-1121170607/react-native-community_picker.iml" group="HelloWorld/react-native-community_picker" />
->>>>>>> RuiYang/branching
     </modules>
   </component>
 </project>
